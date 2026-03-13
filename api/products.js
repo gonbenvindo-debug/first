@@ -3,7 +3,13 @@
 // Vercel Serverless Functions
 // ===================================
 
-import { supabase, supabaseAdmin } from '../lib/supabase.js';
+import { createClient } from '@supabase/supabase-js';
+
+// Cliente Supabase (só com anon key - seguro)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default async function handler(req, res) {
   // Enable CORS
