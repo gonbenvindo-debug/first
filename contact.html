@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - PrintCraft</title>
+    <meta name="description" content="Entre em contacto com a PrintCraft - Orçamentos, suporte técnico e informações sobre produtos personalizados">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="section section-light" style="padding-top: 120px; padding-bottom: var(--spacing-12);">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Entre em Contacto</h1>
+                <p class="section-subtitle">Estamos prontos para ajudar a tornar o seu projeto uma realidade</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <h2>Informações de Contacto</h2>
+                    <p>Estamos disponíveis para ajudar com qualquer dúvida sobre nossos produtos e serviços.</p>
+                    
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Localização</h3>
+                                <p>Rua da Indústria, 123<br>1000-001 Lisboa<br>Portugal</p>
+                                <a href="https://maps.google.com/?q=Rua+da+Ind%C3%BAstria+123+Lisboa" target="_blank" rel="noopener" class="contact-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Ver no mapa
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Telefone</h3>
+                                <p><a href="tel:+351123456789">+351 123 456 789</a></p>
+                                <p><a href="tel:+351912345678">+351 912 345 678</a> (WhatsApp)</p>
+                                <div class="contact-hours">
+                                    <span>Seg-Sex: 9h00 - 18h00</span>
+                                    <span>Sáb: 9h00 - 13h00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p><a href="mailto:info@printcraft.pt">info@printcraft.pt</a> (Geral)</p>
+                                <p><a href="mailto:orcamentos@printcraft.pt">orcamentos@printcraft.pt</a> (Orçamentos)</p>
+                                <p><a href="mailto:suporte@printcraft.pt">suporte@printcraft.pt</a> (Suporte)</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Horário de Atendimento</h3>
+                                <div class="hours-grid">
+                                    <div class="hours-item">
+                                        <span>Segunda a Sexta</span>
+                                        <strong>9h00 - 18h00</strong>
+                                    </div>
+                                    <div class="hours-item">
+                                        <span>Sábado</span>
+                                        <strong>9h00 - 13h00</strong>
+                                    </div>
+                                    <div class="hours-item">
+                                        <span>Domingo</span>
+                                        <strong>Fechado</strong>
+                                    </div>
+                                    <div class="hours-item">
+                                        <span>Feriados</span>
+                                        <strong>Fechado</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3>Ações Rápidas</h3>
+                        <div class="action-buttons">
+                            <a href="tel:+351123456789" class="btn btn-primary">
+                                <i class="fas fa-phone"></i>
+                                Ligar Agora
+                            </a>
+                            <a href="https://wa.me/351912345678" target="_blank" rel="noopener" class="btn btn-success">
+                                <i class="fab fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                            <a href="mailto:info@printcraft.pt" class="btn btn-secondary">
+                                <i class="fas fa-envelope"></i>
+                                Enviar Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <div class="form-card">
+                        <h2>Solicitar Orçamento</h2>
+                        <p>Preencha o formulário abaixo e responderemos em até 2 horas úteis.</p>
+                        
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="name">Nome Completo *</label>
+                                    <input type="text" class="form-input" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">Email *</label>
+                                    <input type="email" class="form-input" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">Telefone</label>
+                                    <input type="tel" class="form-input" id="phone" name="phone" placeholder="+351 000 000 000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="company">Empresa</label>
+                                    <input type="text" class="form-input" id="company" name="company">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="service">Tipo de Serviço *</label>
+                                <select class="form-select" id="service" name="service" required>
+                                    <option value="">Selecione um serviço</option>
+                                    <option value="flyers">Flyers e Folhetos</option>
+                                    <option value="business-cards">Cartões de Visita</option>
+                                    <option value="banners">Banners e Faixas</option>
+                                    <option value="stickers">Autocolantes</option>
+                                    <option value="brochures">Brochuras e Catálogos</option>
+                                    <option value="posters">Posters</option>
+                                    <option value="packaging">Embalagens</option>
+                                    <option value="design">Design Gráfico</option>
+                                    <option value="consulting">Consultoria</option>
+                                    <option value="other">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="urgency">Urgência</label>
+                                <select class="form-select" id="urgency" name="urgency">
+                                    <option value="normal">Normal (5-7 dias)</option>
+                                    <option value="express">Express (2-3 dias)</option>
+                                    <option value="urgent">Urgente (24 horas)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="quantity">Quantidade</label>
+                                    <input type="number" class="form-input" id="quantity" name="quantity" min="1" placeholder="Ex: 500">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="budget">Orçamento Aproximado</label>
+                                    <select class="form-select" id="budget" name="budget">
+                                        <option value="">Selecione</option>
+                                        <option value="0-100">Até €100</option>
+                                        <option value="100-500">€100 - €500</option>
+                                        <option value="500-1000">€500 - €1.000</option>
+                                        <option value="1000-5000">€1.000 - €5.000</option>
+                                        <option value="5000+">Acima de €5.000</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="message">Descrição do Projeto *</label>
+                                <textarea class="form-textarea" id="message" name="message" rows="4" required 
+                                    placeholder="Descreva detalhadamente o que precisa..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="files">Anexar Ficheiros (Opcional)</label>
+                                <div class="file-upload">
+                                    <input type="file" id="files" name="files" multiple accept=".pdf,.jpg,.jpeg,.png,.ai,.eps,.psd">
+                                    <label for="files" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Clique para selecionar ficheiros ou arraste aqui</span>
+                                        <small>PDF, JPG, PNG, AI, EPS, PSD (Máx. 10MB)</small>
+                                    </label>
+                                    <div id="file-list" class="file-list"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <span class="checkmark"></span>
+                                    Deseja receber novidades e ofertas exclusivas?
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms" name="terms" required>
+                                    <span class="checkmark"></span>
+                                    Li e aceito os <a href="terms.html" target="_blank">Termos de Serviço</a> e <a href="privacy.html" target="_blank">Política de Privacidade</a> *
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i>
+                                Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="map-section">
+                <div class="map-info">
+                    <h2>Visite-Nos</h2>
+                    <p>Venha conhecer nossa instalação e discutir seu projeto pessoalmente.</p>
+                    
+                    <div class="map-features">
+                        <div class="map-feature">
+                            <i class="fas fa-parking"></i>
+                            <h4>Estacionamento Gratuito</h4>
+                            <p>Estacionamento disponível para clientes</p>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-wifi"></i>
+                            <h4>Wi-Fi Gratuito</h4>
+                            <p>Internet de alta velocidade</p>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-coffee"></i>
+                            <h4>Café e Água</h4>
+                            <p>Conforto enquanto espera</p>
+                        </div>
+                        <div class="map-feature">
+                            <i class="fas fa-desktop"></i>
+                            <h4>Estação de Trabalho</h4>
+                            <p>Computador para revisões</p>
+                        </div>
+                    </div>
+
+                    <div class="directions">
+                        <h3>Como Chegar</h3>
+                        <div class="transport-options">
+                            <div class="transport-option">
+                                <i class="fas fa-car"></i>
+                                <div>
+                                    <strong>Carro</strong>
+                                    <p>Acesso fácil pela A1 e IC2</p>
+                                </div>
+                            </div>
+                            <div class="transport-option">
+                                <i class="fas fa-subway"></i>
+                                <div>
+                                    <strong>Metro</strong>
+                                    <p>Estação Blue Line - 5 min a pé</p>
+                                </div>
+                            </div>
+                            <div class="transport-option">
+                                <i class="fas fa-bus"></i>
+                                <div>
+                                    <strong>Autocarro</strong>
+                                    <p>Linhas 15, 28, 44 - Parada à porta</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3111.123456789!2d-9.123456789!3d38.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMDAnMzguMSJTIDnCsDA3JzI0LjQiIlc!5e0!3m2!1spt!2spt!4v1234567890"
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: var(--radius-xl);" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-gray">
+        <div class="container container-md">
+            <div class="section-header">
+                <h2 class="section-title">Perguntas Frequentes</h2>
+                <p class="section-subtitle">Respostas rápidas para dúvidas comuns</p>
+            </div>
+            
+            <div class="faq-mini">
+                <div class="faq-mini-item">
+                    <button class="faq-mini-question" onclick="toggleMiniFAQ(this)">
+                        <span>Qual o tempo médio de resposta?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-mini-answer">
+                        <p>Respondemos em até 2 horas úteis para emails e imediatamente por telefone durante horário comercial.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <button class="faq-mini-question" onclick="toggleMiniFAQ(this)">
+                        <span>Fazem entregas em todo o país?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-mini-answer">
+                        <p>Sim, entregamos em todo Portugal continental, Madeira e Açores. Entrega gratuita acima de €50.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <button class="faq-mini-question" onclick="toggleMiniFAQ(this)">
+                        <span>Preciso de marcar visita?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-mini-answer">
+                        <p>Não é necessário marcar, mas recomendamos para garantir que alguém especializado esteja disponível.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="components.js"></script>
+    
+    <script>
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A enviar...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Simulate form submission
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Show success message
+                if (window.componentLoader) {
+                    window.componentLoader.showToast('✅ Mensagem enviada com sucesso! Responderemos em breve.', 'success');
+                }
+                
+                // Reset form
+                this.reset();
+                document.getElementById('file-list').innerHTML = '';
+                
+            } catch (error) {
+                // Show error message
+                if (window.componentLoader) {
+                    window.componentLoader.showToast('❌ Erro ao enviar. Tente novamente.', 'error');
+                }
+            } finally {
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // File upload handling
+        const fileInput = document.getElementById('files');
+        const fileList = document.getElementById('file-list');
+        
+        fileInput.addEventListener('change', function() {
+            fileList.innerHTML = '';
+            
+            Array.from(this.files).forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <i class="fas fa-file"></i>
+                    <span>${file.name}</span>
+                    <small>(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+                    <button type="button" onclick="removeFile(this)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        });
+        
+        function removeFile(button) {
+            button.parentElement.remove();
+        }
+        
+        // Mini FAQ toggle
+        function toggleMiniFAQ(button) {
+            const item = button.parentElement;
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            item.classList.toggle('active');
+            
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.classList.add('fa-chevron-up');
+                icon.classList.remove('fa-chevron-down');
+            } else {
+                answer.style.maxHeight = null;
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+        
+        // Initialize mini FAQs
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.faq-mini-answer').forEach(answer => {
+                answer.style.maxHeight = null;
+            });
+        });
+    </script>
+
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--spacing-12);
+            margin-bottom: var(--spacing-12);
+        }
+        
+        .contact-info-section h2,
+        .contact-form-section h2 {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .contact-items {
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .contact-item {
+            display: flex;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            padding: var(--spacing-5);
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xl);
+            flex-shrink: 0;
+        }
+        
+        .contact-details h3 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-2);
+            color: var(--gray-900);
+        }
+        
+        .contact-details p {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .contact-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-1);
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-2);
+        }
+        
+        .contact-hours {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-1);
+            margin-top: var(--spacing-2);
+        }
+        
+        .contact-hours span {
+            font-size: var(--font-size-sm);
+            color: var(--gray-500);
+        }
+        
+        .hours-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-3);
+            margin-top: var(--spacing-3);
+        }
+        
+        .hours-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-1);
+        }
+        
+        .hours-item span {
+            font-size: var(--font-size-sm);
+            color: var(--gray-500);
+        }
+        
+        .hours-item strong {
+            font-size: var(--font-size-base);
+            color: var(--gray-900);
+        }
+        
+        .quick-actions {
+            background: var(--gray-50);
+            padding: var(--spacing-6);
+            border-radius: var(--radius-xl);
+        }
+        
+        .quick-actions h3 {
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-3);
+            flex-wrap: wrap;
+        }
+        
+        .form-card {
+            background: var(--white);
+            padding: var(--spacing-8);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-3);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            color: var(--gray-700);
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            margin: 0;
+        }
+        
+        .file-upload {
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-6);
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary-color);
+            background: var(--gray-50);
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-2);
+            cursor: pointer;
+        }
+        
+        .file-upload-label i {
+            font-size: var(--font-size-3xl);
+            color: var(--primary-color);
+        }
+        
+        .file-upload-label small {
+            color: var(--gray-500);
+        }
+        
+        .file-list {
+            margin-top: var(--spacing-4);
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-2);
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .file-item button {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        .map-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-12);
+            align-items: start;
+        }
+        
+        .map-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+            margin: var(--spacing-6) 0;
+        }
+        
+        .map-feature {
+            text-align: center;
+            padding: var(--spacing-4);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .map-feature i {
+            font-size: var(--font-size-2xl);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .map-feature h4 {
+            font-size: var(--font-size-base);
+            margin-bottom: var(--spacing-1);
+        }
+        
+        .map-feature p {
+            font-size: var(--font-size-sm);
+            color: var(--gray-600);
+            margin: 0;
+        }
+        
+        .transport-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+        }
+        
+        .transport-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            padding: var(--spacing-3);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .transport-option i {
+            font-size: var(--font-size-xl);
+            color: var(--primary-color);
+            width: 40px;
+            text-align: center;
+        }
+        
+        .faq-mini {
+            margin-top: var(--spacing-8);
+        }
+        
+        .faq-mini-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-3);
+            overflow: hidden;
+        }
+        
+        .faq-mini-question {
+            width: 100%;
+            padding: var(--spacing-4);
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--gray-900);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .faq-mini-question:hover {
+            color: var(--primary-color);
+        }
+        
+        .faq-mini-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-mini-answer p {
+            padding: 0 var(--spacing-4) var(--spacing-4);
+            margin: 0;
+            color: var(--gray-600);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid,
+            .map-section {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-8);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>
