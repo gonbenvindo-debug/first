@@ -107,6 +107,12 @@ function goToProduct(slug) {
 
 // Filter Products
 function filterProducts(category, btn) {
+    // Prevent default behavior
+    if (window.event) {
+        window.event.preventDefault();
+        window.event.stopPropagation();
+    }
+    
     // Prevent multiple clicks
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(b => b.disabled = true);
@@ -125,6 +131,8 @@ function filterProducts(category, btn) {
         // Re-enable buttons after loading
         buttons.forEach(b => b.disabled = false);
     });
+    
+    return false;
 }
 
 // Cart Functions
