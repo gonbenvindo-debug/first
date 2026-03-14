@@ -74,13 +74,13 @@ function renderProducts() {
     productsGrid.innerHTML = products.map(product => `
         <div class="product-card" onclick="goToProduct('${product.slug}')">
             <div class="product-image">
-                <img src="${product.image_url}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
+                <img src="${product.image_url || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
             </div>
             <div class="product-info">
                 <span class="product-category-tag">${getCategoryLabel(product.category)}</span>
                 <h3>${product.name}</h3>
                 <p>${product.description || ''}</p>
-                <div class="product-price">Desde €${product.price.toFixed(2)}</div>
+                <div class="product-price">Desde €${parseFloat(product.price).toFixed(2)}</div>
                 <button class="add-to-cart" onclick="event.stopPropagation(); goToProduct('${product.slug}')">
                     <i class="fas fa-palette"></i> Personalizar
                 </button>
