@@ -130,126 +130,138 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Entre em Contacto</h2>
-            <div class="contact-content">
+            <div class="contact-header">
+                <h2>Entre em Contacto</h2>
+                <p>Estamos aqui para ajudar. Envie-nos uma mensagem e responderemos em breve!</p>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Contact Info -->
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fas fa-phone-alt"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Telefone</h3>
+                        <div class="info-content">
+                            <h4>Telefone</h4>
                             <p><a href="tel:+351912345678">+351 912 345 678</a></p>
-                            <small>Seg-Sex: 9h-18h</small>
+                            <span>Seg-Sex: 9h-18h</span>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
+                        <div class="info-content">
+                            <h4>Email</h4>
                             <p><a href="mailto:info@printcraft.pt">info@printcraft.pt</a></p>
-                            <small>Resposta em 24h</small>
+                            <span>Resposta em 24h</span>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>Endereço</h3>
-                            <p>Rua do Comércio, 123<br>4000-123 Porto, Portugal</p>
-                            <small>Visitas mediante agendamento</small>
+                        <div class="info-content">
+                            <h4>Endereço</h4>
+                            <p>Rua do Comércio, 123</p>
+                            <p>4000-123 Porto</p>
+                            <span>Visitas mediante agendamento</span>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
-                        <div class="contact-details">
-                            <h3>WhatsApp</h3>
+                        <div class="info-content">
+                            <h4>WhatsApp</h4>
                             <p><a href="https://wa.me/351912345678" target="_blank">+351 912 345 678</a></p>
-                            <small>Atendimento rápido</small>
+                            <span>Atendimento rápido</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="contact-form-wrapper">
-                    <div class="contact-form-header">
-                        <h3>Solicite Orçamento Gratuito</h3>
-                        <p>Resposta em até 2 horas úteis</p>
-                    </div>
-                    
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Nome Completo *</label>
-                                <input type="text" id="name" name="name" required placeholder="O seu nome">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required placeholder="seu@email.com">
-                            </div>
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h3>Solicite Orçamento</h3>
+                            <p>Resposta em até 2 horas úteis</p>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="phone">Telefone</label>
-                                <input type="tel" id="phone" name="phone" placeholder="+351 9xx xxx xxx">
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Nome Completo *</label>
+                                    <input type="text" id="name" name="name" required placeholder="O seu nome">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Telefone</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+351 9xx xxx xxx">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="company">Empresa</label>
+                                    <input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)">
+                                </div>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="company">Empresa</label>
-                                <input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)">
+                                <label for="product_type">Tipo de Produto *</label>
+                                <select id="product_type" name="product_type" required>
+                                    <option value="">Selecione um produto</option>
+                                    <option value="flyers">Flyers e Folhetos</option>
+                                    <option value="cartoes">Cartões de Visita</option>
+                                    <option value="banners">Banners e Faixas</option>
+                                    <option value="autocolantes">Autocolantes</option>
+                                    <option value="brochuras">Brochuras e Catálogos</option>
+                                    <option value="posters">Posters e Lona</option>
+                                    <option value="outro">Outro</option>
+                                </select>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="product_type">Tipo de Produto *</label>
-                            <select id="product_type" name="product_type" required>
-                                <option value="">Selecione um produto</option>
-                                <option value="flyers">Flyers e Folhetos</option>
-                                <option value="cartoes">Cartões de Visita</option>
-                                <option value="banners">Banners e Faixas</option>
-                                <option value="autocolantes">Autocolantes</option>
-                                <option value="brochuras">Brochuras e Catálogos</option>
-                                <option value="posters">Posters e Lona</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-row">
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="quantity">Quantidade</label>
+                                    <input type="number" id="quantity" name="quantity" placeholder="Ex: 500" min="1">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="deadline">Prazo Desejado</label>
+                                    <input type="date" id="deadline" name="deadline">
+                                </div>
+                            </div>
+                            
                             <div class="form-group">
-                                <label for="quantity">Quantidade</label>
-                                <input type="number" id="quantity" name="quantity" placeholder="Ex: 500" min="1">
+                                <label for="message">Mensagem / Especificações *</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="Descreva o que precisa... (tamanho, cores, acabamento, etc.)"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="deadline">Prazo Desejado</label>
-                                <input type="date" id="deadline" name="deadline">
+                            
+                            <div class="form-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="urgent" name="urgent">
+                                    <span class="checkmark"></span>
+                                    Orçamento urgente (+25%)
+                                </label>
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Mensagem / Especificações *</label>
-                            <textarea id="message" name="message" rows="4" required placeholder="Descreva o que precisa... (tamanho, cores, acabamento, etc.)"></textarea>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="urgent" name="urgent">
-                                <span class="checkmark"></span>
-                                Orçamento urgente (+25%)
-                            </label>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary">
+                            
+                            <button type="submit" class="submit-btn">
                                 <i class="fas fa-paper-plane"></i>
                                 Enviar Solicitação
                             </button>
-                            <small id="form-note">Campos marcados com * são obrigatórios</small>
-                        </div>
-                    </form>
+                            
+                            <p class="form-note">Campos marcados com * são obrigatórios</p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
