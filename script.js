@@ -3,7 +3,7 @@
 // ===================================
 
 // Supabase Configuration - usando CDN já carregado
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     'https://SEU-PROJETO.supabase.co',
     'SUA_CHAVE_ANONIMA'
 );
@@ -286,7 +286,7 @@ function setupEventListeners() {
             
             try {
                 // Save to Supabase (when configured)
-                // const { data, error } = await supabase
+                // const { data, error } = await supabaseClient
                 //     .from('contacts')
                 //     .insert([formData]);
                 
@@ -310,7 +310,7 @@ function setupEventListeners() {
             
             try {
                 // Save to Supabase (when configured)
-                // const { data, error } = await supabase
+                // const { data, error } = await supabaseClient
                 //     .from('newsletter')
                 //     .insert([{ email, created_at: new Date().toISOString() }]);
                 
@@ -372,7 +372,7 @@ function showToast(message, type = 'success') {
 // Supabase Integration Functions
 async function saveContactToSupabase(contactData) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('contacts')
             .insert([contactData]);
         
@@ -386,7 +386,7 @@ async function saveContactToSupabase(contactData) {
 
 async function saveNewsletterToSupabase(email) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('newsletter')
             .insert([{ 
                 email, 
@@ -403,7 +403,7 @@ async function saveNewsletterToSupabase(email) {
 
 async function saveOrderToSupabase(orderData) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('orders')
             .insert([orderData]);
         
@@ -418,7 +418,7 @@ async function saveOrderToSupabase(orderData) {
 // Initialize Supabase connection check
 async function checkSupabaseConnection() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('products')
             .select('count')
             .limit(1);
@@ -441,7 +441,7 @@ async function loadProductsFromSupabase() {
     
     if (isConnected) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('products')
                 .select('*')
                 .order('created_at', { ascending: false });
