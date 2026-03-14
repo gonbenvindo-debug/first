@@ -40,7 +40,20 @@ async function loadProductsFromSupabase() {
             }
         });
         
-        products = await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Produtos carregados:', data);
+        
+        if (Array.isArray(data)) {
+            products = data;
+        } else {
+            console.error('Resposta inesperada:', data);
+            products = [];
+        }
+        
         renderProducts();
     } catch (error) {
         console.error('Erro ao carregar produtos:', error);
