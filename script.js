@@ -111,7 +111,6 @@ function loadProducts() {
         <div class="product-card" onclick="goToProduct(${product.id})">
             <div class="product-image">
                 ${product.image ? `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">` : ''}
-                <i class="fas ${product.icon}"></i>
             </div>
             <div class="product-info">
                 <h3>${product.name}</h3>

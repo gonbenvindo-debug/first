@@ -137,10 +137,10 @@ function initParallaxEffects() {
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         
-        // Parallax for hero content
+        // Parallax for hero content (disabled)
         const heroContent = document.querySelector('.hero-content');
         if (heroContent) {
-            heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            heroContent.style.transform = 'none';
         }
         
         // Parallax for hero image
