@@ -439,6 +439,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Trigger function for order number
+CREATE OR REPLACE FUNCTION set_order_number()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.order_number := 'ORD-' || TO_CHAR(CURRENT_DATE, 'YYYYMMDD') || '-' || LPAD((SELECT COUNT(*)::TEXT + 1 FROM orders WHERE DATE(created_at) = CURRENT_DATE), 4, '0');
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Function to create slug from text
 CREATE OR REPLACE FUNCTION create_slug(TEXT)
 RETURNS TEXT AS $$
@@ -474,17 +483,29 @@ CREATE TRIGGER update_settings_updated_at BEFORE UPDATE ON settings
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Trigger to generate order number
+DROP TRIGGER IF EXISTS generate_order_number_trigger ON orders;
 CREATE TRIGGER generate_order_number_trigger
     BEFORE INSERT ON orders
     FOR EACH ROW
-    EXECUTE FUNCTION generate_order_number();
+    EXECUTE FUNCTION set_order_number();
 
 -- Trigger to create slug from name for products
+CREATE OR REPLACE FUNCTION set_product_slug()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.slug IS NULL OR NEW.slug = '' THEN
+        NEW.slug := LOWER(REGEXP_REPLACE(REGEXP_REPLACE(NEW.name, '[^a-zA-Z0-9\s]', '', 'g'), '\s+', '-', 'g'));
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create the correct trigger
+DROP TRIGGER IF EXISTS create_product_slug ON products;
 CREATE TRIGGER create_product_slug
     BEFORE INSERT ON products
     FOR EACH ROW
-    WHEN (NEW.slug IS NULL)
-    EXECUTE FUNCTION create_slug(NEW.name);
+    EXECUTE FUNCTION set_product_slug();
 
 -- ===================================
 -- VIEWS FOR COMMON QUERIES
