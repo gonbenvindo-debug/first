@@ -438,22 +438,3 @@ async function loadProductsFromSupabase() {
     // Fallback to local products
     return products;
 }
-
-// Update the loadProducts function to use Supabase data
-async function initializeProducts() {
-    const productsData = await loadProductsFromSupabase();
-    // Update the global products array
-    if (productsData !== products) {
-        products.length = 0;
-        products.push(...productsData);
-    }
-    loadProducts();
-}
-
-// Call initializeProducts instead of loadProducts on page load
-document.addEventListener('DOMContentLoaded', function() {
-    initializeProducts();
-    loadCart();
-    setupEventListeners();
-    updateCartCount();
-});
