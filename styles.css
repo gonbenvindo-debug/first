@@ -1349,8 +1349,14 @@ body {
         font-size: 12rem;
     }
     
-    .products, .services, .about, .contact {
-        padding: 80px 0;
+    .product-card,
+    .service-card,
+    .card {
+        padding: 1.15rem;
+    }
+
+    .product-image {
+        height: 180px;
     }
     
     .products h2, .services h2, .about h2, .contact h2 {
@@ -1362,41 +1368,42 @@ body {
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 100px 0 60px;
+        padding: 80px 0 50px;
         min-height: auto;
         justify-content: center;
     }
 
     .hero-content {
         margin-right: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 1.75rem;
         text-align: center;
         max-width: 100%;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.1rem;
         margin-bottom: 1rem;
         text-align: center;
     }
 
     .hero p {
         font-size: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1.75rem;
         text-align: center;
     }
 
     .hero-buttons {
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        justify-content: center;
+        gap: 0.85rem;
+        width: 100%;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
         width: 100%;
-        max-width: 250px;
+        max-width: 320px;
+        justify-content: center;
     }
 
     .hero-image {
@@ -1431,13 +1438,13 @@ body {
     }
 
     .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem;
     }
 
     .services-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
 
     .footer-content {
@@ -1503,19 +1510,20 @@ body {
     }
 
     .hero {
-        padding: 80px 0 40px;
+        padding: 70px 0 40px;
     }
 
     .hero h1 {
-        font-size: 1.75rem;
+        font-size: 1.6rem;
     }
 
     .hero p {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
     }
 
-    .products, .services, .about, .contact {
-        padding: 60px 0;
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
     .products h2, .services h2, .about h2, .contact h2 {
@@ -1524,12 +1532,12 @@ body {
 
     .products-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.1rem;
     }
 
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.25rem;
     }
 
     .service-card {
