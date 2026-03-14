@@ -227,7 +227,7 @@ body {
     position: relative;
     z-index: 1;
     margin-right: 3rem;
-    animation: slideInLeft 1s ease-out;
+    animation: none;
 }
 
 .hero h1 {
@@ -238,7 +238,7 @@ body {
     color: #ffffff;
     letter-spacing: -1px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    animation: windText 3s ease-in-out infinite;
+    animation: none;
 }
 
 .hero p {
@@ -248,7 +248,7 @@ body {
     font-weight: 400;
     line-height: 1.6;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    animation: windText 3s ease-in-out infinite 0.2s;
+    animation: none;
 }
 
 .hero-buttons {
