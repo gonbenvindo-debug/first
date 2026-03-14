@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrintCraft - Produtos Personalizados de Publicidade</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/footer-enhanced.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -133,52 +134,123 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
                             <h3>Telefone</h3>
-                            <p>+351 912 345 678</p>
+                            <p><a href="tel:+351912345678">+351 912 345 678</a></p>
+                            <small>Seg-Sex: 9h-18h</small>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
                             <h3>Email</h3>
-                            <p>info@printcraft.pt</p>
+                            <p><a href="mailto:info@printcraft.pt">info@printcraft.pt</a></p>
+                            <small>Resposta em 24h</small>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
                             <h3>Endereço</h3>
-                            <p>Rua do Comércio, 123<br>4000-123 Porto</p>
+                            <p>Rua do Comércio, 123<br>4000-123 Porto, Portugal</p>
+                            <small>Visitas mediante agendamento</small>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>WhatsApp</h3>
+                            <p><a href="https://wa.me/351912345678" target="_blank">+351 912 345 678</a></p>
+                            <small>Atendimento rápido</small>
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Seu Nome" required>
+                
+                <div class="contact-form-wrapper">
+                    <div class="contact-form-header">
+                        <h3>Solicite Orçamento Gratuito</h3>
+                        <p>Resposta em até 2 horas úteis</p>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Seu Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Seu Telefone">
-                    </div>
-                    <div class="form-group">
-                        <select id="product-type" name="product-type">
-                            <option value="">Tipo de Produto</option>
-                            <option value="flyers">Flyers</option>
-                            <option value="business-cards">Cartões de Visita</option>
-                            <option value="banners">Banners</option>
-                            <option value="stickers">Autocolantes</option>
-                            <option value="other">Outro</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Descreva o seu projeto..." rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
-                </form>
+                    
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Nome Completo *</label>
+                                <input type="text" id="name" name="name" required placeholder="O seu nome">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Telefone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+351 9xx xxx xxx">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Empresa</label>
+                                <input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product_type">Tipo de Produto *</label>
+                            <select id="product_type" name="product_type" required>
+                                <option value="">Selecione um produto</option>
+                                <option value="flyers">Flyers e Folhetos</option>
+                                <option value="cartoes">Cartões de Visita</option>
+                                <option value="banners">Banners e Faixas</option>
+                                <option value="autocolantes">Autocolantes</option>
+                                <option value="brochuras">Brochuras e Catálogos</option>
+                                <option value="posters">Posters e Lona</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity">Quantidade</label>
+                                <input type="number" id="quantity" name="quantity" placeholder="Ex: 500" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="deadline">Prazo Desejado</label>
+                                <input type="date" id="deadline" name="deadline">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensagem / Especificações *</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Descreva o que precisa... (tamanho, cores, acabamento, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="urgent" name="urgent">
+                                <span class="checkmark"></span>
+                                Orçamento urgente (+25%)
+                            </label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Enviar Solicitação
+                            </button>
+                            <small id="form-note">Campos marcados com * são obrigatórios</small>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -208,43 +280,92 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>PrintCraft</h3>
-                    <p>Produtos personalizados para o seu negócio</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <div class="footer-logo">
+                        <h3><i class="fas fa-print"></i> PrintCraft</h3>
+                        <p>Especialistas em produtos personalizados de publicidade desde 2024. Qualidade, rapidez e preço competitivo para o seu negócio.</p>
+                        <div class="social-links">
+                            <a href="https://facebook.com/printcraft" target="_blank" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://instagram.com/printcraft" target="_blank" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://linkedin.com/company/printcraft" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://wa.me/351912345678" target="_blank" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="footer-section">
-                    <h4>Links Úteis</h4>
+                    <h4><i class="fas fa-link"></i> Links Rápidos</h4>
                     <ul>
-                        <li><a href="#products">Produtos</a></li>
-                        <li><a href="#services">Serviços</a></li>
-                        <li><a href="#about">Sobre</a></li>
-                        <li><a href="#contact">Contacto</a></li>
+                        <li><a href="#products"><i class="fas fa-chevron-right"></i> Produtos</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Serviços</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Sobre Nós</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                        <li><a href="portfolio"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                        <li><a href="blog"><i class="fas fa-chevron-right"></i> Blog</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h4>Produtos</h4>
+                    <h4><i class="fas fa-box"></i> Produtos</h4>
                     <ul>
-                        <li><a href="#">Flyers</a></li>
-                        <li><a href="#">Cartões de Visita</a></li>
-                        <li><a href="#">Banners</a></li>
-                        <li><a href="#">Autocolantes</a></li>
+                        <li><a href="#products"><i class="fas fa-file-alt"></i> Flyers e Folhetos</a></li>
+                        <li><a href="#products"><i class="fas fa-id-card"></i> Cartões de Visita</a></li>
+                        <li><a href="#products"><i class="fas fa-flag"></i> Banners e Faixas</a></li>
+                        <li><a href="#products"><i class="fas fa-sticky-note"></i> Autocolantes</a></li>
+                        <li><a href="#products"><i class="fas fa-book"></i> Brochuras e Catálogos</a></li>
+                        <li><a href="#products"><i class="fas fa-image"></i> Posters e Lona</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Subscreva para receber ofertas exclusivas</p>
+                    <h4><i class="fas fa-envelope"></i> Newsletter</h4>
+                    <p>Receba <strong>10% de desconto</strong> na sua primeira encomenda e ofertas exclusivas!</p>
                     <form class="newsletter-form" id="newsletter-form">
-                        <input type="email" placeholder="Seu email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <div class="newsletter-input-group">
+                            <input type="email" placeholder="O seu melhor email..." required>
+                            <button type="submit" class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <small class="newsletter-note">Prometemos não fazer spam. Cancelar a qualquer momento.</small>
                     </form>
+                    
+                    <div class="contact-mini">
+                        <h4><i class="fas fa-headset"></i> Suporte</h4>
+                        <p><i class="fas fa-phone"></i> +351 912 345 678</p>
+                        <p><i class="fas fa-envelope"></i> info@printcraft.pt</p>
+                    </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 PrintCraft. Todos os direitos reservados.</p>
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2024 PrintCraft. Todos os direitos reservados.</p>
+                        <p>Feito com <i class="fas fa-heart"></i> em Portugal</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="privacy">Política de Privacidade</a>
+                        <a href="terms">Termos e Condições</a>
+                        <a href="cookies">Política de Cookies</a>
+                        <a href="faq">FAQ</a>
+                    </div>
+                    <div class="footer-payments">
+                        <span>Formas de Pagamento:</span>
+                        <i class="fab fa-cc-visa" title="Visa"></i>
+                        <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                        <i class="fab fa-cc-paypal" title="PayPal"></i>
+                        <i class="fab fa-cc-stripe" title="Stripe"></i>
+                        <i class="fas fa-money-bill-wave" title="Transferência"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

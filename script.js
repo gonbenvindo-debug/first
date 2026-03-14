@@ -1,7 +1,12 @@
-// Supabase Configuration
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+// ===================================
+// PRINTCRAFT FRONTEND JAVASCRIPT
+// ===================================
+
+// Supabase Configuration - usando CDN já carregado
+const supabase = window.supabase.createClient(
+    'https://SEU-PROJETO.supabase.co',
+    'SUA_CHAVE_ANONIMA'
+);
 
 // State Management
 let cart = [];
