@@ -107,17 +107,24 @@ function goToProduct(slug) {
 
 // Filter Products
 function filterProducts(category, btn) {
+    // Prevent multiple clicks
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(b => b.disabled = true);
+    
     currentCategory = category;
     
     // Update active button
-    document.querySelectorAll('.category-btn').forEach(b => {
+    buttons.forEach(b => {
         b.classList.remove('active');
     });
     if (btn) {
         btn.classList.add('active');
     }
     
-    loadProductsFromSupabase();
+    loadProductsFromSupabase().finally(() => {
+        // Re-enable buttons after loading
+        buttons.forEach(b => b.disabled = false);
+    });
 }
 
 // Cart Functions
