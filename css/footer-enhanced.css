@@ -795,7 +795,7 @@
 
 @media (max-width: 768px) {
     .contact {
-        padding: 60px 0;
+        padding: 40px 0;
     }
     
     .contact-header h2 {
@@ -806,12 +806,15 @@
         grid-template-columns: 1fr;
     }
     
-    .form-grid {
+    .form-grid,
+    .form-grid.simple-grid {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
     
     .form-card {
-        padding: 30px 20px;
+        padding: 24px 18px;
+        gap: 16px;
     }
     
     .info-card {
@@ -827,20 +830,21 @@
 
 @media (max-width: 480px) {
     .contact {
-        padding: 40px 0;
+        padding: 32px 0;
     }
     
     .contact-header h2 {
-        font-size: 1.75rem;
+        font-size: 1.6rem;
     }
     
     .form-card {
-        padding: 25px 15px;
+        padding: 20px 14px;
+        gap: 14px;
     }
     
     .info-card {
-        padding: 15px;
-        gap: 15px;
+        padding: 14px;
+        gap: 12px;
     }
     
     .info-icon {
