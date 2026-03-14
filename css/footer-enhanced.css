@@ -539,7 +539,7 @@
    PRODUCT PAGE - NEW DESIGN
    =================================== */
 
-/* Product Cards Clickable */
+/* Product Cards Clickable - Same as Service Cards */
 .product-card {
     cursor: pointer;
     transition: all var(--transition-normal);
@@ -605,8 +605,10 @@
     opacity: 1;
 }
 
-/* Product Icon Animation */
+/* Product Icon Animation - Same as Service Cards */
 .product-card .product-image i {
+    font-size: 3.5rem;
+    color: var(--primary-color);
     transition: all var(--transition-normal);
 }
 
