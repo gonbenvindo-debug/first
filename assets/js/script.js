@@ -4,7 +4,7 @@
 
 // Supabase Configuration
 const SUPABASE_URL = 'https://sgoafvyygsmucmzssraa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NzI1ODQsImV4cCI6MjA1NzQ0ODU4NH0.KmPxFeg-SZJXG0ZfQrS-ciKJFtt-GQpPVU8FPHkdAnM';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTAxODQsImV4cCI6MjA4ODk4NjE4NH0.JvxNdhCO-ucRtr2ew0M-TQHdsoMW4BzzUaRtXsl9HDM';
 
 // State Management
 let cart = [];
