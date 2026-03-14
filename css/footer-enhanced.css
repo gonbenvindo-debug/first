@@ -555,7 +555,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #4f46e5, #818cf8);
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -566,54 +566,13 @@
 
 .product-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(79, 70, 229, 0.15);
-    border-color: #e0e7ff;
-}
-
-.product-card:active {
-    transform: translateY(-4px);
-}
-
-/* Product Image Container */
-.product-image {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px 12px 0 0;
-}
-
-.product-image i {
-    font-size: 3.5rem;
-    color: #4f46e5;
-    transition: all 0.3s ease;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+    border-color: #e0f2fe;
 }
 
 .product-card:hover .product-image i {
     transform: scale(1.1);
-    color: #4338ca;
-}
-
-.product-image::after {
-    content: '\f35d';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(79, 70, 229, 0.9);
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.product-card:hover .product-image::after {
-    opacity: 1;
+    color: #2563eb;
 }
 
 /* ===================================
@@ -648,7 +607,7 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 60px;
-    align-items: start;
+    align-items: stretch;
 }
 
 /* Contact Info Cards */

@@ -194,70 +194,24 @@
                         </div>
                         
                         <form class="contact-form" id="contact-form">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="name">Nome Completo *</label>
-                                    <input type="text" id="name" name="name" required placeholder="O seu nome">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">Email *</label>
-                                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone">Telefone</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="+351 9xx xxx xxx">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="company">Empresa</label>
-                                    <input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)">
-                                </div>
+                            <div class="form-group">
+                                <label for="name">Nome *</label>
+                                <input type="text" id="name" name="name" required placeholder="O seu nome">
                             </div>
                             
                             <div class="form-group">
-                                <label for="product_type">Tipo de Produto *</label>
-                                <select id="product_type" name="product_type" required>
-                                    <option value="">Selecione um produto</option>
-                                    <option value="flyers">Flyers e Folhetos</option>
-                                    <option value="cartoes">Cartões de Visita</option>
-                                    <option value="banners">Banners e Faixas</option>
-                                    <option value="autocolantes">Autocolantes</option>
-                                    <option value="brochuras">Brochuras e Catálogos</option>
-                                    <option value="posters">Posters e Lona</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="quantity">Quantidade</label>
-                                    <input type="number" id="quantity" name="quantity" placeholder="Ex: 500" min="1">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="deadline">Prazo Desejado</label>
-                                    <input type="date" id="deadline" name="deadline">
-                                </div>
+                                <label for="phone">Contacto *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+351 9xx xxx xxx">
                             </div>
                             
                             <div class="form-group">
-                                <label for="message">Mensagem / Especificações *</label>
-                                <textarea id="message" name="message" rows="4" required placeholder="Descreva o que precisa... (tamanho, cores, acabamento, etc.)"></textarea>
-                            </div>
-                            
-                            <div class="form-options">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="urgent" name="urgent">
-                                    <span class="checkmark"></span>
-                                    Orçamento urgente (+25%)
-                                </label>
+                                <label for="message">Descrição *</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="Descreva o que precisa..."></textarea>
                             </div>
                             
                             <button type="submit" class="submit-btn">
                                 <i class="fas fa-paper-plane"></i>
-                                Enviar Solicitação
+                                Enviar Mensagem
                             </button>
                             
                             <p class="form-note">Campos marcados com * são obrigatórios</p>
@@ -338,9 +292,11 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h4><i class="fas fa-headset"></i> Suporte</h4>
-                    <p><i class="fas fa-phone"></i> +351 912 345 678</p>
-                    <p><i class="fas fa-envelope"></i> info@printcraft.pt</p>
+                    <div class="contact-mini">
+                        <h4><i class="fas fa-headset"></i> Suporte</h4>
+                        <p><i class="fas fa-phone"></i> +351 912 345 678</p>
+                        <p><i class="fas fa-envelope"></i> info@printcraft.pt</p>
+                    </div>
                 </div>
             </div>
             
