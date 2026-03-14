@@ -630,6 +630,19 @@ body {
     padding: 1.5rem;
 }
 
+.product-category-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
 .product-info h3 {
     font-size: 1.3rem;
     margin-bottom: 0.75rem;

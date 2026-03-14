@@ -2,131 +2,90 @@
 // PRINTCRAFT FRONTEND JAVASCRIPT
 // ===================================
 
-// Supabase Configuration - usando CDN já carregado
-// NOTA: Configuração desativada para evitar erros de conexão
-// const supabaseClient = window.supabase.createClient(
-//     'https://SEU-PROJETO.supabase.co',
-//     'SUA_CHAVE_ANONIMA'
-// );
-
-// Cliente Supabase desativado - usando apenas dados locais
-const supabaseClient = null;
+// Supabase Configuration
+const SUPABASE_URL = 'https://sgoafvyygsmucmzssraa.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4NzI1ODQsImV4cCI6MjA1NzQ0ODU4NH0.KmPxFeg-SZJXG0ZfQrS-ciKJFtt-GQpPVU8FPHkdAnM';
 
 // State Management
 let cart = [];
+let products = [];
 let currentCategory = 'all';
-
-// Products Data
-const products = [
-    {
-        id: 1,
-        name: 'Flyers A6',
-        category: 'flyers',
-        price: 29.99,
-        description: 'Flyers em papel de alta qualidade, formato A6',
-        icon: 'fa-file-alt',
-        image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop'
-    },
-    {
-        id: 2,
-        name: 'Cartões de Visita',
-        category: 'business-cards',
-        price: 19.99,
-        description: 'Cartões de visita profissionais em papel premium',
-        icon: 'fa-id-card',
-        image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop'
-    },
-    {
-        id: 3,
-        name: 'Banner 2x1m',
-        category: 'banners',
-        price: 89.99,
-        description: 'Banners externos em vinil resistente',
-        icon: 'fa-flag',
-        image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop'
-    },
-    {
-        id: 4,
-        name: 'Autocolantes Redondos',
-        category: 'stickers',
-        price: 14.99,
-        description: 'Autocolantes adesivos de alta qualidade',
-        icon: 'fa-circle',
-        image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=400&h=300&fit=crop'
-    },
-    {
-        id: 5,
-        name: 'Flyers A5',
-        category: 'flyers',
-        price: 39.99,
-        description: 'Flyers em papel de alta qualidade, formato A5',
-        icon: 'fa-file',
-        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57c70?w=400&h=300&fit=crop'
-    },
-    {
-        id: 6,
-        name: 'Cartões de Visita Premium',
-        category: 'business-cards',
-        price: 34.99,
-        description: 'Cartões de visita em papel especial com acabamento premium',
-        icon: 'fa-id-badge',
-        image: 'https://images.unsplash.com/photo-1606325611047-e6b6d6e1e1a2?w=400&h=300&fit=crop'
-    },
-    {
-        id: 7,
-        name: 'Banner 3x2m',
-        category: 'banners',
-        price: 149.99,
-        description: 'Banners grandes para eventos e promoções',
-        icon: 'fa-scroll',
-        image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop'
-    },
-    {
-        id: 8,
-        name: 'Autocolantes Quadrados',
-        category: 'stickers',
-        price: 16.99,
-        description: 'Autocolantes quadrados personalizados',
-        icon: 'fa-square',
-        image: 'https://images.unsplash.com/photo-1620321023374-1a2b56b5ec3e?w=400&h=300&fit=crop'
-    }
-];
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', function() {
-    loadProducts();
+    loadProductsFromSupabase();
     loadCart();
     setupEventListeners();
     updateCartCount();
 });
 
-// Load Products
-function loadProducts() {
+// Load Products from Supabase
+async function loadProductsFromSupabase() {
     const productsGrid = document.getElementById('products-grid');
-    const filteredProducts = currentCategory === 'all' 
-        ? products 
-        : products.filter(p => p.category === currentCategory);
+    if (!productsGrid) return;
     
-    productsGrid.innerHTML = filteredProducts.map(product => `
-        <div class="product-card" onclick="goToProduct(${product.id})">
+    productsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+    
+    try {
+        let url = `${SUPABASE_URL}/rest/v1/products?in_stock=eq.true&order=created_at.desc`;
+        if (currentCategory !== 'all') {
+            url += `&category=eq.${currentCategory}`;
+        }
+        
+        const response = await fetch(url, {
+            headers: { 'apikey': SUPABASE_KEY }
+        });
+        
+        products = await response.json();
+        renderProducts();
+    } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+        productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ef4444;">Erro ao carregar produtos</p>';
+    }
+}
+
+// Render Products
+function renderProducts() {
+    const productsGrid = document.getElementById('products-grid');
+    if (!productsGrid) return;
+    
+    if (products.length === 0) {
+        productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">Nenhum produto encontrado</p>';
+        return;
+    }
+    
+    productsGrid.innerHTML = products.map(product => `
+        <div class="product-card" onclick="goToProduct('${product.slug}')">
             <div class="product-image">
-                ${product.image ? `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">` : ''}
+                <img src="${product.image_url}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
             </div>
             <div class="product-info">
+                <span class="product-category-tag">${getCategoryLabel(product.category)}</span>
                 <h3>${product.name}</h3>
-                <p>${product.description}</p>
-                <div class="product-price">€${product.price.toFixed(2)}</div>
-                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    Adicionar ao Carrinho
+                <p>${product.description || ''}</p>
+                <div class="product-price">Desde €${product.price.toFixed(2)}</div>
+                <button class="add-to-cart" onclick="event.stopPropagation(); goToProduct('${product.slug}')">
+                    <i class="fas fa-palette"></i> Personalizar
                 </button>
             </div>
         </div>
     `).join('');
 }
 
+// Get Category Label
+function getCategoryLabel(category) {
+    const labels = {
+        'flybanners': 'Flybanners',
+        'rollups': 'Roll-ups',
+        'xbanners': 'X-Banners',
+        'lonas': 'Lonas'
+    };
+    return labels[category] || category;
+}
+
 // Go to Product Page
-function goToProduct(productId) {
-    window.location.href = `product.html?id=${productId}`;
+function goToProduct(slug) {
+    window.location.href = `pages/produto.html?slug=${slug}`;
 }
 
 // Filter Products
@@ -139,7 +98,7 @@ function filterProducts(category) {
     });
     event.target.classList.add('active');
     
-    loadProducts();
+    loadProductsFromSupabase();
 }
 
 // Cart Functions
