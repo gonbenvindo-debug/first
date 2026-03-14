@@ -3,10 +3,14 @@
 // ===================================
 
 // Supabase Configuration - usando CDN já carregado
-const supabaseClient = window.supabase.createClient(
-    'https://SEU-PROJETO.supabase.co',
-    'SUA_CHAVE_ANONIMA'
-);
+// NOTA: Configuração desativada para evitar erros de conexão
+// const supabaseClient = window.supabase.createClient(
+//     'https://SEU-PROJETO.supabase.co',
+//     'SUA_CHAVE_ANONIMA'
+// );
+
+// Cliente Supabase desativado - usando apenas dados locais
+const supabaseClient = null;
 
 // State Management
 let cart = [];
@@ -417,6 +421,11 @@ async function saveOrderToSupabase(orderData) {
 
 // Initialize Supabase connection check
 async function checkSupabaseConnection() {
+    // Supabase desativado - sempre retorna false para usar dados locais
+    return false;
+    
+    // Código original comentado para referência futura
+    /*
     try {
         const { data, error } = await supabaseClient
             .from('products')
@@ -424,15 +433,17 @@ async function checkSupabaseConnection() {
             .limit(1);
         
         if (error) {
-            console.warn('Supabase not configured yet. Using local data.');
+            console.log('Supabase connection error:', error);
             return false;
         }
         
+        console.log('Supabase connected successfully');
         return true;
     } catch (error) {
-        console.warn('Supabase connection failed. Using local data.');
+        console.log('Supabase not available:', error);
         return false;
     }
+    */
 }
 
 // Load products from Supabase if available
