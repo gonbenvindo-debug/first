@@ -615,13 +615,18 @@
             }
             
             try {
+                const headers = {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json'
+                };
+                
                 // Buscar produto
-                const productRes = await fetch(`${SUPABASE_URL}/rest/v1/products?slug=eq.${slug}&select=*`, {
-                    headers: { 'apikey': SUPABASE_KEY }
-                });
+                const productRes = await fetch(`${SUPABASE_URL}/rest/v1/products?slug=eq.${slug}&select=*`, { headers });
                 const products = await productRes.json();
                 
-                if (products.length === 0) {
+                if (!products || products.length === 0) {
+                    console.error('Produto não encontrado:', slug);
                     window.location.href = '../index.html#products';
                     return;
                 }
@@ -629,9 +634,7 @@
                 currentProduct = products[0];
                 
                 // Buscar variantes
-                const variantsRes = await fetch(`${SUPABASE_URL}/rest/v1/product_variants?product_id=eq.${currentProduct.id}&order=sort_order`, {
-                    headers: { 'apikey': SUPABASE_KEY }
-                });
+                const variantsRes = await fetch(`${SUPABASE_URL}/rest/v1/product_variants?product_id=eq.${currentProduct.id}&order=sort_order`, { headers });
                 variants = await variantsRes.json();
                 
                 // Renderizar

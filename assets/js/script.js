@@ -33,7 +33,11 @@ async function loadProductsFromSupabase() {
         }
         
         const response = await fetch(url, {
-            headers: { 'apikey': SUPABASE_KEY }
+            headers: { 
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json'
+            }
         });
         
         products = await response.json();
