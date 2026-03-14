@@ -6,25 +6,47 @@
 const SUPABASE_URL = 'https://sgoafvyygsmucmzssraa.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MTAxODQsImV4cCI6MjA4ODk4NjE4NH0.JvxNdhCO-ucRtr2ew0M-TQHdsoMW4BzzUaRtXsl9HDM';
 
-// State Management
+// State
 let cart = [];
 let products = [];
 let currentCategory = 'all';
 
-// Initialize App
+// Init
 document.addEventListener('DOMContentLoaded', function() {
-    loadProductsFromSupabase();
+    initCategoryButtons();
+    loadProducts();
     loadCart();
     setupEventListeners();
     updateCartCount();
 });
 
-// Load Products from Supabase
-async function loadProductsFromSupabase() {
-    const productsGrid = document.getElementById('products-grid');
-    if (!productsGrid) return;
+// Setup category buttons with event listeners (not inline onclick)
+function initCategoryButtons() {
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const category = this.dataset.category;
+            if (!category) return;
+            
+            // Update active state
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update category and reload
+            currentCategory = category;
+            loadProducts();
+        });
+    });
+}
+
+// Load Products
+async function loadProducts() {
+    const grid = document.getElementById('products-grid');
+    if (!grid) return;
     
-    productsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
     
     try {
         let url = `${SUPABASE_URL}/rest/v1/products?in_stock=eq.true&order=created_at.desc`;
@@ -32,56 +54,44 @@ async function loadProductsFromSupabase() {
             url += `&category=eq.${currentCategory}`;
         }
         
-        const response = await fetch(url, {
+        const res = await fetch(url, {
             headers: { 
                 'apikey': SUPABASE_KEY,
-                'Authorization': `Bearer ${SUPABASE_KEY}`,
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${SUPABASE_KEY}`
             }
         });
         
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         
-        const data = await response.json();
-        console.log('Produtos carregados:', data);
-        
-        if (Array.isArray(data)) {
-            products = data;
-        } else {
-            console.error('Resposta inesperada:', data);
-            products = [];
-        }
-        
+        products = await res.json();
         renderProducts();
-    } catch (error) {
-        console.error('Erro ao carregar produtos:', error);
-        productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ef4444;">Erro ao carregar produtos</p>';
+    } catch (err) {
+        console.error('Erro:', err);
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#ef4444">Erro ao carregar produtos</p>';
     }
 }
 
 // Render Products
 function renderProducts() {
-    const productsGrid = document.getElementById('products-grid');
-    if (!productsGrid) return;
+    const grid = document.getElementById('products-grid');
+    if (!grid) return;
     
-    if (products.length === 0) {
-        productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">Nenhum produto encontrado</p>';
+    if (!products.length) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b">Nenhum produto encontrado</p>';
         return;
     }
     
-    productsGrid.innerHTML = products.map(product => `
-        <div class="product-card" onclick="goToProduct('${product.slug}')">
+    grid.innerHTML = products.map(p => `
+        <div class="product-card" onclick="goToProduct('${p.slug}')">
             <div class="product-image">
-                <img src="${product.image_url || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
+                <img src="${p.image_url || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
             </div>
             <div class="product-info">
-                <span class="product-category-tag">${getCategoryLabel(product.category)}</span>
-                <h3>${product.name}</h3>
-                <p>${product.description || ''}</p>
-                <div class="product-price">Desde €${parseFloat(product.price).toFixed(2)}</div>
-                <button class="add-to-cart" onclick="event.stopPropagation(); goToProduct('${product.slug}')">
+                <span class="product-category-tag">${getCategoryLabel(p.category)}</span>
+                <h3>${p.name}</h3>
+                <p>${p.description || ''}</p>
+                <div class="product-price">Desde €${parseFloat(p.price).toFixed(2)}</div>
+                <button type="button" class="add-to-cart" onclick="event.stopPropagation(); goToProduct('${p.slug}')">
                     <i class="fas fa-palette"></i> Personalizar
                 </button>
             </div>
@@ -89,50 +99,15 @@ function renderProducts() {
     `).join('');
 }
 
-// Get Category Label
-function getCategoryLabel(category) {
-    const labels = {
-        'flybanners': 'Flybanners',
-        'rollups': 'Roll-ups',
-        'xbanners': 'X-Banners',
-        'lonas': 'Lonas'
-    };
-    return labels[category] || category;
+// Category Label
+function getCategoryLabel(cat) {
+    const labels = { 'flybanners': 'Flybanners', 'rollups': 'Roll-ups', 'xbanners': 'X-Banners', 'lonas': 'Lonas' };
+    return labels[cat] || cat;
 }
 
-// Go to Product Page
+// Go to Product
 function goToProduct(slug) {
     window.location.href = `pages/produto.html?slug=${slug}`;
-}
-
-// Filter Products
-function filterProducts(category, btn) {
-    // Prevent default behavior
-    if (window.event) {
-        window.event.preventDefault();
-        window.event.stopPropagation();
-    }
-    
-    // Prevent multiple clicks
-    const buttons = document.querySelectorAll('.category-btn');
-    buttons.forEach(b => b.disabled = true);
-    
-    currentCategory = category;
-    
-    // Update active button
-    buttons.forEach(b => {
-        b.classList.remove('active');
-    });
-    if (btn) {
-        btn.classList.add('active');
-    }
-    
-    loadProductsFromSupabase().finally(() => {
-        // Re-enable buttons after loading
-        buttons.forEach(b => b.disabled = false);
-    });
-    
-    return false;
 }
 
 // Cart Functions

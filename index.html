@@ -76,11 +76,11 @@
         <div class="container">
             <h2>Nossos Produtos</h2>
             <div class="product-categories">
-                <button type="button" class="category-btn active" onclick="filterProducts('all', this); return false;">Todos</button>
-                <button type="button" class="category-btn" onclick="filterProducts('flybanners', this); return false;">Flybanners</button>
-                <button type="button" class="category-btn" onclick="filterProducts('rollups', this); return false;">Roll-ups</button>
-                <button type="button" class="category-btn" onclick="filterProducts('xbanners', this); return false;">X-Banners</button>
-                <button type="button" class="category-btn" onclick="filterProducts('lonas', this); return false;">Lonas</button>
+                <button type="button" class="category-btn active" data-category="all">Todos</button>
+                <button type="button" class="category-btn" data-category="flybanners">Flybanners</button>
+                <button type="button" class="category-btn" data-category="rollups">Roll-ups</button>
+                <button type="button" class="category-btn" data-category="xbanners">X-Banners</button>
+                <button type="button" class="category-btn" data-category="lonas">Lonas</button>
             </div>
             <div class="products-grid" id="products-grid">
                 <!-- Products will be dynamically loaded here -->
