@@ -491,39 +491,19 @@
 
 @media (max-width: 768px) {
     .product-section {
-        padding: 20px 0 40px;
+        padding: 20px 0 60px;
     }
     
-    .breadcrumb {
-        margin-bottom: 20px;
-        font-size: 0.85rem;
-    }
-
     .product-info h1 {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
+        font-size: 2rem;
     }
     
-    .product-description {
-        font-size: 1rem;
-        margin-bottom: 25px;
-    }
-
     .size-options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        flex-direction: column;
     }
     
     .product-actions {
         flex-direction: column;
-        gap: 12px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        padding: 14px 20px;
     }
     
     .editor-container {
@@ -531,38 +511,51 @@
         height: 100%;
         border-radius: 0;
     }
+    
+    .editor-content {
+        flex-direction: column;
+    }
+    
+    .editor-toolbar {
+        width: 100%;
+        flex-direction: row;
+        padding: 15px;
+        overflow-x: auto;
+    }
+    
+    .tool-group {
+        flex-direction: row;
+    }
+    
+    .properties-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+    }
 }
 
 @media (max-width: 480px) {
     .product-info h1 {
-        font-size: 1.6rem;
+        font-size: 1.75rem;
     }
     
     .preview-image {
-        height: 280px;
-        font-size: 2.5rem;
+        height: 300px;
+        font-size: 3rem;
     }
     
     .quantity-controls {
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .qty-btn {
-        flex: 1;
-    }
-
-    .quantity-controls input {
-        flex: 2;
+        max-width: 150px;
     }
     
-    .price-total span:last-child {
-        font-size: 1.75rem;
+    .qty-btn {
+        width: 40px;
+        padding: 10px;
     }
-
+    
     .tool-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 0.9rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
     }
 }
