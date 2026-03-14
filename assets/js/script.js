@@ -106,14 +106,16 @@ function goToProduct(slug) {
 }
 
 // Filter Products
-function filterProducts(category) {
+function filterProducts(category, btn) {
     currentCategory = category;
     
     // Update active button
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.classList.remove('active');
+    document.querySelectorAll('.category-btn').forEach(b => {
+        b.classList.remove('active');
     });
-    event.target.classList.add('active');
+    if (btn) {
+        btn.classList.add('active');
+    }
     
     loadProductsFromSupabase();
 }
