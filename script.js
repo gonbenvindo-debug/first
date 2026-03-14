@@ -108,7 +108,7 @@ function loadProducts() {
         : products.filter(p => p.category === currentCategory);
     
     productsGrid.innerHTML = filteredProducts.map(product => `
-        <div class="product-card">
+        <div class="product-card" onclick="goToProduct(${product.id})">
             <div class="product-image">
                 ${product.image ? `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">` : ''}
                 <i class="fas ${product.icon}"></i>
@@ -117,12 +117,17 @@ function loadProducts() {
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
                 <div class="product-price">€${product.price.toFixed(2)}</div>
-                <button class="add-to-cart" onclick="addToCart(${product.id})">
+                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
                     Adicionar ao Carrinho
                 </button>
             </div>
         </div>
     `).join('');
+}
+
+// Go to Product Page
+function goToProduct(productId) {
+    window.location.href = `product.html?id=${productId}`;
 }
 
 // Filter Products

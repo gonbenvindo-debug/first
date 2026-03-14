@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto - PrintCraft</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/footer-enhanced.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="index.html"><i class="fas fa-print"></i> PrintCraft</a></h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html#home" class="nav-link">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#products" class="nav-link">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#about" class="nav-link">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="cart-btn" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cart-count">0</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="index.html">Início</a>
+                <span>/</span>
+                <a href="index.html#products">Produtos</a>
+                <span>/</span>
+                <span id="product-name">Flyers A6</span>
+            </nav>
+
+            <div class="product-container">
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 id="product-title">Flyers A6</h1>
+                    <p class="product-description">
+                        Flyers profissionais em formato A6, perfeitos para eventos, promoções e marketing direto. 
+                        Impressão em alta qualidade com acabamento personalizado.
+                    </p>
+                    
+                    <div class="product-specs">
+                        <h3>Especificações</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Formato: A6 (105x148mm)</li>
+                            <li><i class="fas fa-check"></i> Papel: 300g brilhante ou fosco</li>
+                            <li><i class="fas fa-check"></i> Impressão: Full color (4x0)</li>
+                            <li><i class="fas fa-check"></i> Acabamento: Verniz ou relevo</li>
+                        </ul>
+                    </div>
+
+                    <div class="size-selector">
+                        <h3>Tamanho</h3>
+                        <div class="size-options">
+                            <label class="size-option">
+                                <input type="radio" name="size" value="A6" checked>
+                                <span>A6 (105x148mm)</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="radio" name="size" value="A5">
+                                <span>A5 (148x210mm)</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="radio" name="size" value="A4">
+                                <span>A4 (210x297mm)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <h3>Quantidade</h3>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+                            <input type="number" id="quantity" value="100" min="50" max="10000" step="50">
+                            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                        </div>
+                        <div class="quantity-info">
+                            <span id="unit-price">€0.15</span> por unidade
+                        </div>
+                    </div>
+
+                    <div class="product-price">
+                        <div class="price-total">
+                            <span>Total:</span>
+                            <span id="total-price">€15.00</span>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-primary" onclick="openEditor()">
+                            <i class="fas fa-paint-brush"></i>
+                            Personalizar Design
+                        </button>
+                        <button class="btn-secondary" onclick="addToCart()">
+                            <i class="fas fa-cart-plus"></i>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Preview -->
+                <div class="product-preview">
+                    <div class="preview-container">
+                        <div class="preview-image">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="preview-controls">
+                            <button class="preview-btn active" onclick="setPreviewMode('front')">Frente</button>
+                            <button class="preview-btn" onclick="setPreviewMode('back')">Verso</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Editor Modal -->
+    <div class="editor-modal" id="editor-modal">
+        <div class="editor-container">
+            <div class="editor-header">
+                <h3>Editor de Design</h3>
+                <div class="editor-actions">
+                    <button class="btn-secondary" onclick="saveDesign()">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <button class="btn-primary" onclick="applyDesign()">
+                        <i class="fas fa-check"></i> Aplicar
+                    </button>
+                    <button class="btn-close" onclick="closeEditor()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="editor-content">
+                <!-- Editor Toolbar -->
+                <div class="editor-toolbar">
+                    <div class="tool-group">
+                        <button class="tool-btn" onclick="addText()" title="Adicionar Texto">
+                            <i class="fas fa-font"></i>
+                        </button>
+                        <button class="tool-btn" onclick="addShape('rect')" title="Adicionar Retângulo">
+                            <i class="fas fa-square"></i>
+                        </button>
+                        <button class="tool-btn" onclick="addShape('circle')" title="Adicionar Círculo">
+                            <i class="fas fa-circle"></i>
+                        </button>
+                        <button class="tool-btn" onclick="uploadImage()" title="Carregar Imagem">
+                            <i class="fas fa-image"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <button class="tool-btn" onclick="deleteSelected()" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="tool-btn" onclick="bringToFront()" title="Trazer para Frente">
+                            <i class="fas fa-layer-group"></i>
+                        </button>
+                        <button class="tool-btn" onclick="sendToBack()" title="Enviar para Trás">
+                            <i class="fas fa-layer-group" style="transform: rotate(180deg);"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Area -->
+                <div class="canvas-container">
+                    <canvas id="design-canvas"></canvas>
+                </div>
+
+                <!-- Properties Panel -->
+                <div class="properties-panel">
+                    <h4>Propriedades</h4>
+                    <div id="properties-content">
+                        <p>Selecione um objeto para editar propriedades</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Carrinho de Compras</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">€0.00</span>
+            </div>
+            <button class="btn-primary" onclick="checkout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <script src="script.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>
