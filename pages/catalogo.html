@@ -98,6 +98,27 @@
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
+        /* Search wrapper with icon */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .search-wrapper input {
+            padding-left: 40px;
+        }
+        
         .filter-item select {
             cursor: pointer;
             appearance: none;
@@ -247,22 +268,24 @@
             }
             
             .filters-row {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 12px;
-                align-items: stretch;
-            }
-            
-            .filter-item {
-                min-width: auto;
+                align-items: start;
             }
             
             .filter-item.search-item {
-                min-width: auto;
+                grid-column: 1 / -1;
+            }
+            
+            .filter-item.view-item {
+                grid-column: 2;
+                justify-self: end;
             }
             
             .catalog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
                 padding: 30px 16px;
             }
             
@@ -296,6 +319,20 @@
         }
         
         @media (max-width: 480px) {
+            .filters-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .filter-item.search-item {
+                grid-column: 1;
+            }
+            
+            .filter-item.view-item {
+                grid-column: 1;
+                justify-self: start;
+            }
+            
             .catalog-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -385,7 +422,10 @@
                     
                     <!-- Search -->
                     <div class="filter-item search-item">
-                        <input type="text" id="search-input" placeholder="Pesquisar..." onkeyup="searchProducts()">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="search-input" placeholder="Pesquisar..." onkeyup="searchProducts()">
+                        </div>
                     </div>
                     
                     <!-- View Toggle -->
