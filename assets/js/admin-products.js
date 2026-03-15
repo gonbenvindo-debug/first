@@ -8,6 +8,7 @@ let filteredProducts = [];
 // Supabase configuration
 const SUPABASE_URL = 'https://sgoafvyygsmucmzssraa.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5MDQ1MTksImV4cCI6MjA0OTQ4MDUxOX0.w9JtqRqXwB3IS1YCFQqwP8lJQJFg7WJ_LXaVtP8O7o';
+const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMzkwNDUxOSwiZXhwIjoyMDQ5NDgwNTE5fQ.pBfkSsN_x5-t9y2glOVCoB9Xrjw3tKzIjR_L3GqgJZQ';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -31,8 +32,8 @@ async function loadProducts() {
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`, {
             headers: {
-                'apikey': SUPABASE_KEY,
-                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'apikey': SUPABASE_SERVICE_KEY,
+                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
                 'Content-Type': 'application/json',
                 'Prefer': 'return=representation'
             }
@@ -319,8 +320,8 @@ async function saveProduct(event) {
             const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${currentEditId}`, {
                 method: 'PATCH',
                 headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'apikey': SUPABASE_SERVICE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
@@ -336,8 +337,8 @@ async function saveProduct(event) {
             const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
                 method: 'POST',
                 headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'apikey': SUPABASE_SERVICE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
@@ -409,8 +410,8 @@ async function deleteProduct(productId) {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
             method: 'DELETE',
             headers: {
-                'apikey': SUPABASE_KEY,
-                'Authorization': `Bearer ${SUPABASE_KEY}`
+                'apikey': SUPABASE_SERVICE_KEY,
+                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
             }
         });
         
