@@ -265,23 +265,18 @@ function toggleMobileMenu() {
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        // Se for a seção contact, procurar pelo textarea message
+        // Se for a seção contact, procurar pelo título "Fale Connosco"
         if (sectionId === 'contact') {
-            const messageTextarea = document.getElementById('message');
-            if (messageTextarea) {
+            const contactHeader = section.querySelector('.contact-header h2');
+            if (contactHeader) {
                 const isMobile = window.innerWidth <= 768;
-                const offset = isMobile ? -100 : -120; // Offset para mobile/desktop
+                const offset = isMobile ? -60 : -80; // Offset para mobile/desktop
                 
-                const textareaTop = messageTextarea.offsetTop + offset;
+                const headerTop = contactHeader.offsetTop + offset;
                 window.scrollTo({
-                    top: textareaTop,
+                    top: headerTop,
                     behavior: 'smooth'
                 });
-                
-                // Focar no textarea após o scroll
-                setTimeout(() => {
-                    messageTextarea.focus();
-                }, 800);
                 
                 return;
             }
