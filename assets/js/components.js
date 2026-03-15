@@ -18,14 +18,13 @@ function generateNavbar() {
                     </a>
                 </div>
                 
-                <div class="nav-menu">
-                    <div class="nav-links">
-                        <a href="${basePath}index.html#home">Início</a>
-                        <a href="${basePath}index.html#products">Produtos</a>
-                        <a href="${basePath}index.html#services">Serviços</a>
-                        <a href="${basePath}index.html#about">Sobre</a>
-                        <a href="${basePath}index.html#contact">Contacto</a>
-                    </div>
+                <ul class="nav-menu">
+                        <li><a href="${basePath}index.html#home">Início</a></li>
+                        <li><a href="${basePath}index.html#products">Produtos</a></li>
+                        <li><a href="${basePath}index.html#services">Serviços</a></li>
+                        <li><a href="${basePath}index.html#about">Sobre</a></li>
+                        <li><a href="${basePath}index.html#contact">Contacto</a></li>
+                    </ul>
                     
                     <div class="nav-actions">
                         <button class="cart-btn" onclick="toggleCart()">
