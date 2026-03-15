@@ -4,11 +4,15 @@
 
 // Generate Navbar
 function generateNavbar() {
+    // Detect if we're in a subdirectory
+    const isInSubdirectory = window.location.pathname.includes('/pages/');
+    const basePath = isInSubdirectory ? '../' : '';
+    
     return `
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <a href="index.html">
+                    <a href="${basePath}index.html">
                         <i class="fas fa-print"></i>
                         <span>PrintCraft</span>
                     </a>
@@ -16,11 +20,11 @@ function generateNavbar() {
                 
                 <div class="nav-menu">
                     <div class="nav-links">
-                        <a href="index.html#home">Início</a>
-                        <a href="index.html#products">Produtos</a>
-                        <a href="index.html#services">Serviços</a>
-                        <a href="index.html#about">Sobre</a>
-                        <a href="index.html#contact">Contacto</a>
+                        <a href="${basePath}index.html#home">Início</a>
+                        <a href="${basePath}index.html#products">Produtos</a>
+                        <a href="${basePath}index.html#services">Serviços</a>
+                        <a href="${basePath}index.html#about">Sobre</a>
+                        <a href="${basePath}index.html#contact">Contacto</a>
                     </div>
                     
                     <div class="nav-actions">
@@ -40,6 +44,10 @@ function generateNavbar() {
 
 // Generate Footer
 function generateFooter() {
+    // Detect if we're in a subdirectory
+    const isInSubdirectory = window.location.pathname.includes('/pages/');
+    const basePath = isInSubdirectory ? '../' : '';
+    
     return `
         <footer class="footer">
             <div class="container">
@@ -60,20 +68,20 @@ function generateFooter() {
                     <div class="footer-section">
                         <h4>Links Úteis</h4>
                         <ul>
-                            <li><a href="index.html">Início</a></li>
-                            <li><a href="index.html#products">Produtos</a></li>
-                            <li><a href="index.html#services">Serviços</a></li>
-                            <li><a href="index.html#about">Sobre Nós</a></li>
+                            <li><a href="${basePath}index.html">Início</a></li>
+                            <li><a href="${basePath}index.html#products">Produtos</a></li>
+                            <li><a href="${basePath}index.html#services">Serviços</a></li>
+                            <li><a href="${basePath}index.html#about">Sobre Nós</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-section">
                         <h4>Produtos</h4>
                         <ul>
-                            <li><a href="pages/catalogo.html?category=flybanners">Flybanners</a></li>
-                            <li><a href="pages/catalogo.html?category=rollups">Roll-ups</a></li>
-                            <li><a href="pages/catalogo.html?category=xbanners">X-Banners</a></li>
-                            <li><a href="pages/catalogo.html?category=lonas">Lonas</a></li>
+                            <li><a href="${basePath}pages/catalogo.html?category=flybanners">Flybanners</a></li>
+                            <li><a href="${basePath}pages/catalogo.html?category=rollups">Roll-ups</a></li>
+                            <li><a href="${basePath}pages/catalogo.html?category=xbanners">X-Banners</a></li>
+                            <li><a href="${basePath}pages/catalogo.html?category=lonas">Lonas</a></li>
                         </ul>
                     </div>
                     
