@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
 // Setup category buttons with event listeners (not inline onclick)
 function initCategoryButtons() {
     document.querySelectorAll('.category-btn').forEach(btn => {
+        // Ensure button is enabled
+        btn.disabled = false;
+        btn.style.pointerEvents = 'auto';
+        
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -31,7 +35,11 @@ function initCategoryButtons() {
             if (!category) return;
             
             // Update active state
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.category-btn').forEach(b => {
+                b.classList.remove('active');
+                b.disabled = false;
+                b.style.pointerEvents = 'auto';
+            });
             this.classList.add('active');
             
             // Update category and reload
@@ -97,6 +105,11 @@ function renderProducts() {
             </div>
         </div>
     `).join('');
+    
+    // Re-initialize category buttons after rendering products
+    setTimeout(() => {
+        initCategoryButtons();
+    }, 100);
 }
 
 // Category Label
