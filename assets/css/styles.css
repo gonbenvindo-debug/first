@@ -392,10 +392,10 @@ body {
 
 .mobile-search input {
     flex: 1;
-    padding: 12px 16px;
+    padding: 8px 12px;
     border: none;
     background: transparent;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #374151;
     outline: none;
     font-weight: 500;
@@ -407,7 +407,7 @@ body {
 }
 
 .mobile-search .search-btn {
-    padding: 12px 16px;
+    padding: 8px 12px;
     border: none;
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
@@ -416,11 +416,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 6px;
     margin: 2px;
-    font-size: 1rem;
-    width: 48px;
-    height: 48px;
+    font-size: 0.9rem;
+    width: 36px;
+    height: 36px;
 }
 
 .mobile-search .search-btn:hover {
