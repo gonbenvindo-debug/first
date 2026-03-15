@@ -225,7 +225,9 @@ async function loadProductsForSearch() {
         const response = await fetch('https://sgoafvyygsmucmzssraa.supabase.co/rest/v1/products?select=*&order=created_at.desc', {
             headers: {
                 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5MDQ1MTksImV4cCI6MjA0OTQ4MDUxOX0.w9JtqRqXwB3IS1YCFQqwP8lJQJFg7WJ_LXaVtP8O7o',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5MDQ1MTksImV4cCI6MjA0OTQ4MDUxOX0.w9JtqRqXwB3IS1YCFQqwP8lJQJFg7WJ_LXaVtP8O7o'
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnb2Fmdnl5Z3NtdWNtenNzcmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5MDQ1MTksImV4cCI6MjA0OTQ4MDUxOX0.w9JtqRqXwB3IS1YCFQqwP8lJQJFg7WJ_LXaVtP8O7o',
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
             }
         });
         
@@ -337,10 +339,74 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// Add animations to elements
+function addAnimations() {
+    // Navbar animation
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.classList.add('fade-in');
+    }
+    
+    // Hero content animations
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.classList.add('fade-in-up');
+    }
+    
+    // Hero badge
+    const heroBadge = document.querySelector('.hero-badge');
+    if (heroBadge) {
+        heroBadge.classList.add('fade-in-up', 'stagger-1');
+    }
+    
+    // Hero title
+    const heroTitle = document.querySelector('.hero h1');
+    if (heroTitle) {
+        heroTitle.classList.add('fade-in-up', 'stagger-2');
+    }
+    
+    // Hero description
+    const heroDesc = document.querySelector('.hero p');
+    if (heroDesc) {
+        heroDesc.classList.add('fade-in-up', 'stagger-3');
+    }
+    
+    // Hero buttons
+    const heroButtons = document.querySelectorAll('.hero-buttons button');
+    heroButtons.forEach((btn, index) => {
+        btn.classList.add('fade-in-up', `stagger-${index + 4}`);
+    });
+    
+    // Product categories
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach((btn, index) => {
+        btn.classList.add('scale-in', `stagger-${index % 4 + 1}`);
+    });
+    
+    // Products cards
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach((card, index) => {
+        card.classList.add('fade-in-up', `stagger-${index % 4 + 1}`);
+    });
+    
+    // Footer sections
+    const footerSections = document.querySelectorAll('.footer-section');
+    footerSections.forEach((section, index) => {
+        section.classList.add('fade-in-up', `stagger-${index % 4 + 1}`);
+    });
+    
+    // Social links
+    const socialLinks = document.querySelectorAll('.social-links a');
+    socialLinks.forEach((link, index) => {
+        link.classList.add('slide-in-right', `stagger-${index % 4 + 1}`);
+    });
+}
+
 // Auto-initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeComponents();
     loadProductsForSearch(); // Preload products for search
+    addAnimations(); // Add entrance animations
 });
 
 // Export functions for global use
