@@ -34,65 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
 
-// Setup category dropdown
+// Setup category select
 function initCategoryButtons() {
-    // Set initial dropdown state based on URL
-    updateDropdownFromURL();
+    // Set initial select state based on URL
+    const category = getCategoryFromURL();
+    currentCategory = category;
     
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        const dropdown = document.getElementById('category-dropdown');
-        const selected = document.querySelector('.dropdown-selected');
-        
-        if (dropdown && selected && !selected.contains(e.target) && !dropdown.contains(e.target)) {
-            closeDropdown();
-        }
-    });
-}
-
-// Toggle dropdown
-function toggleDropdown() {
-    const dropdown = document.getElementById('category-dropdown');
-    const selected = document.querySelector('.dropdown-selected');
-    
-    if (dropdown.classList.contains('show')) {
-        closeDropdown();
-    } else {
-        openDropdown();
+    const select = document.getElementById('category-select');
+    if (select) {
+        select.value = category;
     }
 }
 
-// Open dropdown
-function openDropdown() {
-    const dropdown = document.getElementById('category-dropdown');
-    const selected = document.querySelector('.dropdown-selected');
-    
-    dropdown.classList.add('show');
-    selected.classList.add('active');
-}
-
-// Close dropdown
-function closeDropdown() {
-    const dropdown = document.getElementById('category-dropdown');
-    const selected = document.querySelector('.dropdown-selected');
-    
-    dropdown.classList.remove('show');
-    selected.classList.remove('active');
-}
-
-// Select category from dropdown
-function selectCategory(category, text, iconClass) {
-    // Update selected display
-    document.getElementById('selected-text').textContent = text;
-    document.getElementById('selected-icon').className = iconClass;
-    
-    // Update active state in dropdown
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    document.querySelector(`[data-category="${category}"]`).classList.add('active');
-    
-    // Update category and apply filters
+// Simple category selection
+function selectCategorySimple(category) {
     if (category !== currentCategory) {
         currentCategory = category;
         applyFilters();
@@ -106,36 +61,6 @@ function selectCategory(category, text, iconClass) {
         }
         window.history.replaceState({}, '', url);
     }
-    
-    // Close dropdown
-    closeDropdown();
-}
-
-// Update dropdown from URL
-function updateDropdownFromURL() {
-    const category = getCategoryFromURL();
-    currentCategory = category;
-    
-    // Update dropdown based on category
-    const categoryInfo = {
-        'all': { text: 'Todos', icon: 'fas fa-th-large' },
-        'flybanners': { text: 'Flybanners', icon: 'fas fa-flag' },
-        'rollups': { text: 'Roll-ups', icon: 'fas fa-scroll' },
-        'xbanners': { text: 'X-Banners', icon: 'fas fa-times' },
-        'lonas': { text: 'Lonas', icon: 'fas fa-rectangle-wide' }
-    };
-    
-    const info = categoryInfo[category] || categoryInfo['all'];
-    document.getElementById('selected-text').textContent = info.text;
-    document.getElementById('selected-icon').className = info.icon;
-    
-    // Update active state
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.classList.remove('active');
-        if (item.dataset.category === category) {
-            item.classList.add('active');
-        }
-    });
 }
 
 // Load Products
