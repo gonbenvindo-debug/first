@@ -61,6 +61,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+.nav-actions > * {
+    flex-shrink: 0;
 }
 
 .nav-logo h1 {
@@ -185,7 +199,9 @@ body {
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
-    width: 280px;
+    width: 240px;
+    min-width: 0;
+    flex-shrink: 0;
 }
 
 .search-container:focus-within {
