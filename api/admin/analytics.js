@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import { withAuth } from './middleware';
 
 // Initialize Supabase client with service role key for admin operations
 const supabase = createClient(
