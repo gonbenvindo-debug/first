@@ -4,11 +4,6 @@
   "description": "PrintCraft - Produtos personalizados de publicidade",
   "main": "index.html",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "export": "next export",
     "serve": "serve -s . -p 3000"
   },
   "dependencies": {
