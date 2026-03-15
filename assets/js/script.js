@@ -265,7 +265,10 @@ function toggleMobileMenu() {
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        const offset = -80; // Offset para levar um pouco mais para baixo
+        // Offset diferente para mobile vs desktop
+        const isMobile = window.innerWidth <= 768;
+        const offset = isMobile ? -40 : -80; // Menor offset para mobile
+        
         const sectionTop = section.offsetTop + offset;
         window.scrollTo({
             top: sectionTop,
