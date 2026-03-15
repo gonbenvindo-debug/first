@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Produtos - PrintCraft Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-print"></i>
+                <span>PrintCraft Admin</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="active"><a href="products.html"><i class="fas fa-box"></i> Produtos</a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Encomendas</a></li>
+                <li><a href="users.html"><i class="fas fa-users"></i> Utilizadores</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Definições</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Gestão de Produtos</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" onclick="openProductModal()">
+                        <i class="fas fa-plus"></i> Novo Produto
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="admin-content">
+                <!-- Filters -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <input type="text" id="search-products" placeholder="Pesquisar produtos..." onkeyup="filterProducts()">
+                        <select id="filter-category" onchange="filterProducts()">
+                            <option value="">Todas as categorias</option>
+                            <option value="flybanners">Flybanners</option>
+                            <option value="rollups">Roll-ups</option>
+                            <option value="xbanners">X-Banners</option>
+                            <option value="lonas">Lonas</option>
+                        </select>
+                        <select id="filter-status" onchange="filterProducts()">
+                            <option value="">Todos os status</option>
+                            <option value="active">Ativo</option>
+                            <option value="inactive">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Variantes</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="btn btn-secondary" onclick="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="page-info">Página 1 de 1</span>
+                    <button class="btn btn-secondary" onclick="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Novo Produto</h2>
+                <button class="close-btn" onclick="closeProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="product-form" onsubmit="saveProduct(event)">
+                <div class="modal-body">
+                    <!-- Basic Info -->
+                    <div class="form-section">
+                        <h3>Informações Básicas</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nome do Produto</label>
+                                <input type="text" id="product-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select id="product-category" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="flybanners">Flybanners</option>
+                                    <option value="rollups">Roll-ups</option>
+                                    <option value="xbanners">X-Banners</option>
+                                    <option value="lonas">Lonas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Preço Base (€)</label>
+                                <input type="number" id="product-price" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select id="product-status">
+                                    <option value="active">Ativo</option>
+                                    <option value="inactive">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Descrição</label>
+                            <textarea id="product-description" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-section">
+                        <h3>Imagem do Produto</h3>
+                        <div class="image-upload">
+                            <div class="upload-area" onclick="document.getElementById('product-image').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Clique para fazer upload da imagem</p>
+                                <input type="file" id="product-image" accept="image/*" onchange="previewImage(event)">
+                            </div>
+                            <div id="image-preview" class="image-preview"></div>
+                        </div>
+                    </div>
+
+                    <!-- Variants -->
+                    <div class="form-section">
+                        <h3>Variantes de Tamanho</h3>
+                        <div id="variants-container">
+                            <div class="variant-item">
+                                <div class="variant-header">
+                                    <span>Variante 1</span>
+                                    <button type="button" class="btn-remove" onclick="removeVariant(this)" style="display:none;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="variant-fields">
+                                    <div class="form-group">
+                                        <label>Nome (ex: Pequeno)</label>
+                                        <input type="text" class="variant-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Largura (cm)</label>
+                                        <input type="number" class="variant-width" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Altura (cm)</label>
+                                        <input type="number" class="variant-height" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preço Adicional (€)</label>
+                                        <input type="number" class="variant-price" step="0.01" value="0">
+                                    </div>
+                                </div>
+                                <div class="svg-upload">
+                                    <label>Template SVG para Personalização</label>
+                                    <div class="upload-area small" onclick="this.querySelector('input').click()">
+                                        <i class="fas fa-file-upload"></i>
+                                        <p>Upload do SVG</p>
+                                        <input type="file" class="variant-svg" accept=".svg" onchange="previewSVG(this)">
+                                    </div>
+                                    <div class="svg-preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addVariant()">
+                            <i class="fas fa-plus"></i> Adicionar Variante
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="../assets/js/admin-products.js"></script>
+</body>
+</html>
