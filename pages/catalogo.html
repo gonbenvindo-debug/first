@@ -109,37 +109,108 @@
             font-size: 0.9rem;
         }
         
-        .category-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+        .category-dropdown {
+            position: relative;
+            width: 100%;
         }
         
-        .category-btn {
-            padding: 10px 16px;
+        .dropdown-selected {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
             border: 2px solid #e2e8f0;
+            border-radius: 12px;
             background: white;
-            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+        
+        .dropdown-selected:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+        
+        .dropdown-selected.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .dropdown-selected #selected-icon {
+            color: #3b82f6;
+            font-size: 1rem;
+        }
+        
+        .dropdown-selected #selected-text {
+            flex: 1;
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
             color: #64748b;
-            font-size: 0.9rem;
+        }
+        
+        .dropdown-selected.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 50;
+            overflow: hidden;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f1f5f9;
         }
         
-        .category-btn:hover,
-        .category-btn.active {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
-            transform: translateY(-1px);
+        .dropdown-item:last-child {
+            border-bottom: none;
         }
         
-        .category-btn i {
-            font-size: 0.85rem;
+        .dropdown-item:hover {
+            background: #f8fafc;
+            color: #3b82f6;
+        }
+        
+        .dropdown-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+        }
+        
+        .dropdown-item i {
+            width: 16px;
+            text-align: center;
+            font-size: 0.9rem;
         }
         
         .sort-options select {
@@ -267,15 +338,60 @@
             
             .filters-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 24px;
             }
             
-            .category-filters {
-                justify-content: center;
+            .filter-section {
+                background: white;
+                padding: 20px;
+                border-radius: 16px;
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+            
+            .filter-section h3 {
+                margin-bottom: 12px;
+                font-size: 0.95rem;
+            }
+            
+            .dropdown-selected {
+                padding: 14px 16px;
+                font-size: 1rem;
+            }
+            
+            .dropdown-menu {
+                border-radius: 8px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            }
+            
+            .dropdown-item {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .sort-options select {
+                padding: 14px 16px;
+                font-size: 1rem;
+                border-radius: 12px;
+            }
+            
+            .search-box {
+                gap: 12px;
+            }
+            
+            .search-box input {
+                padding: 14px 16px;
+                font-size: 1rem;
+                border-radius: 12px;
+            }
+            
+            .search-box button {
+                padding: 14px 20px;
+                border-radius: 12px;
             }
             
             .catalog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 1.5rem;
                 padding: 30px 16px;
             }
@@ -283,6 +399,7 @@
             .product-card.list-view {
                 flex-direction: column;
                 text-align: center;
+                gap: 1.5rem;
             }
             
             .product-card.list-view .product-image {
@@ -292,6 +409,44 @@
             
             .pagination {
                 padding: 30px 16px;
+                gap: 6px;
+            }
+            
+            .pagination button {
+                padding: 10px 14px;
+                font-size: 0.95rem;
+                min-width: 44px;
+            }
+            
+            .pagination-info {
+                font-size: 0.85rem;
+                margin: 0 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            
+            .filter-section {
+                padding: 16px;
+            }
+            
+            .dropdown-selected {
+                padding: 12px 14px;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .pagination button {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                min-width: 40px;
             }
         }
     </style>
@@ -357,22 +512,29 @@
             <div class="filters-content">
                 <div class="filter-section">
                     <h3><i class="fas fa-filter"></i> Categorias</h3>
-                    <div class="category-filters">
-                        <button type="button" class="category-btn active" data-category="all">
-                            <i class="fas fa-th-large"></i> Todos
-                        </button>
-                        <button type="button" class="category-btn" data-category="flybanners">
-                            <i class="fas fa-flag"></i> Flybanners
-                        </button>
-                        <button type="button" class="category-btn" data-category="rollups">
-                            <i class="fas fa-scroll"></i> Roll-ups
-                        </button>
-                        <button type="button" class="category-btn" data-category="xbanners">
-                            <i class="fas fa-times"></i> X-Banners
-                        </button>
-                        <button type="button" class="category-btn" data-category="lonas">
-                            <i class="fas fa-rectangle-wide"></i> Lonas
-                        </button>
+                    <div class="category-dropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown()">
+                            <i class="fas fa-th-large" id="selected-icon"></i>
+                            <span id="selected-text">Todos</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </div>
+                        <div class="dropdown-menu" id="category-dropdown">
+                            <div class="dropdown-item active" data-category="all" onclick="selectCategory('all', 'Todos', 'fas fa-th-large')">
+                                <i class="fas fa-th-large"></i> Todos
+                            </div>
+                            <div class="dropdown-item" data-category="flybanners" onclick="selectCategory('flybanners', 'Flybanners', 'fas fa-flag')">
+                                <i class="fas fa-flag"></i> Flybanners
+                            </div>
+                            <div class="dropdown-item" data-category="rollups" onclick="selectCategory('rollups', 'Roll-ups', 'fas fa-scroll')">
+                                <i class="fas fa-scroll"></i> Roll-ups
+                            </div>
+                            <div class="dropdown-item" data-category="xbanners" onclick="selectCategory('xbanners', 'X-Banners', 'fas fa-times')">
+                                <i class="fas fa-times"></i> X-Banners
+                            </div>
+                            <div class="dropdown-item" data-category="lonas" onclick="selectCategory('lonas', 'Lonas', 'fas fa-rectangle-wide')">
+                                <i class="fas fa-rectangle-wide"></i> Lonas
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
