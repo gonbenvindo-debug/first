@@ -267,8 +267,8 @@ function scrollToSection(sectionId) {
     if (section) {
         // Se for a seção contact, procurar pelo título "Fale Connosco"
         if (sectionId === 'contact') {
-            const contactHeader = section.querySelector('.contact-header h2');
-            if (contactHeader) {
+            const contactHeader = section.querySelector('h3');
+            if (contactHeader && contactHeader.textContent.includes('Fale Connosco')) {
                 const isMobile = window.innerWidth <= 768;
                 const offset = isMobile ? -60 : -80; // Offset para mobile/desktop
                 
