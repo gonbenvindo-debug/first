@@ -63,14 +63,22 @@ class AdminPanel {
 
     // UI Methods
     showLogin() {
-        document.getElementById('login-container').style.display = 'flex';
-        document.getElementById('admin-container').style.display = 'none';
+        const loginContainer = document.getElementById('login-container');
+        const adminContainer = document.getElementById('admin-container');
+        
+        if (loginContainer) loginContainer.style.display = 'flex';
+        if (adminContainer) adminContainer.style.display = 'none';
     }
 
     showDashboard() {
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('admin-container').style.display = 'block';
-        this.loadDashboard();
+        const loginContainer = document.getElementById('login-container');
+        const adminContainer = document.getElementById('admin-container');
+        
+        if (loginContainer) loginContainer.style.display = 'none';
+        if (adminContainer) {
+            adminContainer.style.display = 'block';
+            this.loadDashboard();
+        }
     }
 
     setupEventListeners() {
@@ -108,13 +116,15 @@ class AdminPanel {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
         });
-        document.querySelector(`[data-page="${page}"]`).classList.add('active');
+        const activeLink = document.querySelector(`[data-page="${page}"]`);
+        if (activeLink) activeLink.classList.add('active');
 
         // Show/hide sections
         document.querySelectorAll('.admin-section').forEach(section => {
             section.style.display = 'none';
         });
-        document.getElementById(`${page}-section`).style.display = 'block';
+        const section = document.getElementById(`${page}-section`);
+        if (section) section.style.display = 'block';
 
         // Load page data
         switch(page) {
@@ -148,10 +158,15 @@ class AdminPanel {
     }
 
     updateDashboardStats(stats) {
-        document.getElementById('total-orders').textContent = stats.totalOrders || 0;
-        document.getElementById('total-revenue').textContent = '€' + (stats.totalRevenue || 0).toFixed(2);
-        document.getElementById('total-products').textContent = stats.totalProducts || 0;
-        document.getElementById('avg-order').textContent = '€' + (stats.averageOrderValue || 0).toFixed(2);
+        const totalOrders = document.getElementById('total-orders');
+        const totalRevenue = document.getElementById('total-revenue');
+        const totalProducts = document.getElementById('total-products');
+        const avgOrder = document.getElementById('avg-order');
+        
+        if (totalOrders) totalOrders.textContent = stats.totalOrders || 0;
+        if (totalRevenue) totalRevenue.textContent = '€' + (stats.totalRevenue || 0).toFixed(2);
+        if (totalProducts) totalProducts.textContent = stats.totalProducts || 0;
+        if (avgOrder) avgOrder.textContent = '€' + (stats.averageOrderValue || 0).toFixed(2);
     }
 
     renderOrdersChart(dailySales) {

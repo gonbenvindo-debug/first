@@ -20,7 +20,7 @@ function setCORSHeaders(res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
 }
 
-export default withAuth(async function handler(req, res) {
+export default async function handler(req, res) {
   // Set CORS headers
   setCORSHeaders(res);
   
