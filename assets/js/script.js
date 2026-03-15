@@ -20,29 +20,27 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
 
-// Setup category buttons with event listeners (not inline onclick)
+// Setup category buttons - simple approach
 function initCategoryButtons() {
+    // Remove all existing listeners first
     document.querySelectorAll('.category-btn').forEach(btn => {
-        // Ensure button is enabled
-        btn.disabled = false;
-        btn.style.pointerEvents = 'auto';
-        
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+    });
+    
+    // Add fresh listeners
+    document.querySelectorAll('.category-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
             
             const category = this.dataset.category;
-            if (!category) return;
+            if (category === currentCategory) return; // Already selected
             
-            // Update active state
-            document.querySelectorAll('.category-btn').forEach(b => {
-                b.classList.remove('active');
-                b.disabled = false;
-                b.style.pointerEvents = 'auto';
-            });
+            // Update active state immediately
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
-            // Update category and reload
+            // Update category and load
             currentCategory = category;
             loadProducts();
         });
@@ -105,11 +103,6 @@ function renderProducts() {
             </div>
         </div>
     `).join('');
-    
-    // Re-initialize category buttons after rendering products
-    setTimeout(() => {
-        initCategoryButtons();
-    }, 100);
 }
 
 // Category Label
