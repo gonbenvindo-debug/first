@@ -23,9 +23,6 @@ function generateNavbar() {
                             <div class="mobile-search">
                                 <div class="search-container">
                                     <input type="text" id="mobile-search-input" placeholder="Pesquisar produtos..." onkeyup="handleNavSearch(event)">
-                                    <button class="search-btn" onclick="toggleNavSearch()">
-                                        <i class="fas fa-search"></i>
-                                    </button>
                                 </div>
                                 <div class="search-dropdown" id="search-dropdown">
                                     <div class="search-results" id="search-results">

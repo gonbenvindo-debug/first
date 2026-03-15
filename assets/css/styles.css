@@ -361,7 +361,7 @@ body {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     border: 2px solid #e2e8f0;
     border-radius: 12px;
-    padding: 4px;
+    padding: 12px 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
     position: relative;
@@ -391,14 +391,14 @@ body {
 }
 
 .mobile-search input {
-    flex: 1;
-    padding: 8px 12px;
+    width: 100%;
     border: none;
     background: transparent;
     font-size: 0.9rem;
     color: #374151;
     outline: none;
     font-weight: 500;
+    padding: 0;
 }
 
 .mobile-search input::placeholder {
@@ -406,31 +406,6 @@ body {
     font-weight: 400;
 }
 
-.mobile-search .search-btn {
-    padding: 8px 12px;
-    border: none;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    margin: 2px;
-    font-size: 0.9rem;
-    width: 36px;
-    height: 36px;
-}
-
-.mobile-search .search-btn:hover {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    transform: scale(1.05);
-}
-
-.mobile-search .search-btn:active {
-    transform: scale(0.95);
-}
 
 .mobile-search .search-dropdown {
     position: fixed;
