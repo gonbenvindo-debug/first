@@ -39,6 +39,22 @@ function generateNavbar() {
                         <li><a href="${basePath}index.html#services">Serviços</a></li>
                         <li><a href="${basePath}index.html#about">Sobre</a></li>
                         <li><a href="${basePath}index.html#contact">Contacto</a></li>
+                        <li class="social-links-item">
+                            <div class="mobile-social-links">
+                                <a href="https://facebook.com/printcraft" target="_blank" title="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://instagram.com/printcraft" target="_blank" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://linkedin.com/company/printcraft" target="_blank" title="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://wa.me/351912345678" target="_blank" title="WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                     
                     <div class="nav-actions">

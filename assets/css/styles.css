@@ -491,6 +491,71 @@ body {
     font-weight: 700;
 }
 
+/* Mobile Social Links */
+.social-links-item {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.mobile-social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.mobile-social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.mobile-social-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-social-links a.facebook:hover {
+    background: linear-gradient(135deg, #1877f2, #166fe5);
+    color: white;
+    border-color: #1877f2;
+}
+
+.mobile-social-links a.instagram:hover {
+    background: linear-gradient(135deg, #e4405f, #c13584);
+    color: white;
+    border-color: #e4405f;
+}
+
+.mobile-social-links a.linkedin:hover {
+    background: linear-gradient(135deg, #0077b5, #005885);
+    color: white;
+    border-color: #0077b5;
+}
+
+.mobile-social-links a.whatsapp:hover {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    border-color: #25d366;
+}
+
+/* Hide social links in desktop */
+@media (min-width: 769px) {
+    .social-links-item {
+        display: none !important;
+    }
+}
+
 .desktop-only {
     display: block;
 }
@@ -1933,13 +1998,18 @@ body {
     }
 
     .nav-menu li {
-        margin-bottom: 1.5rem;
+        margin-bottom: 0;
     }
 
     .nav-menu a {
         font-size: 1.1rem;
-        padding: 0.5rem 0;
+        padding: 1rem 0;
         display: block;
+        transition: color 0.2s ease;
+    }
+
+    .nav-menu a:hover {
+        color: #3b82f6;
     }
 
     .mobile-menu-toggle {
