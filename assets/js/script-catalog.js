@@ -1,5 +1,5 @@
 // ===================================
-// PRINTCRAFT FRONTEND JAVASCRIPT
+// PRINTCRAFT CATALOG JAVASCRIPT
 // ===================================
 
 // Supabase Configuration
@@ -11,8 +11,16 @@ let cart = [];
 let products = [];
 let currentCategory = 'all';
 
+// Get category from URL
+function getCategoryFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    return category || 'all';
+}
+
 // Init
 document.addEventListener('DOMContentLoaded', function() {
+    currentCategory = getCategoryFromURL();
     initCategoryButtons();
     loadProducts();
     loadCart();
@@ -20,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
 
-// Setup category buttons - simple approach
+// Setup category buttons
 function initCategoryButtons() {
     // Remove all existing listeners first
     document.querySelectorAll('.category-btn').forEach(btn => {
@@ -43,13 +51,30 @@ function initCategoryButtons() {
             // Update category and load
             currentCategory = category;
             loadProducts();
+            
+            // Update URL
+            const url = new URL(window.location);
+            if (category === 'all') {
+                url.searchParams.delete('category');
+            } else {
+                url.searchParams.set('category', category);
+            }
+            window.history.replaceState({}, '', url);
         });
+    });
+    
+    // Set initial active button
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.category === currentCategory) {
+            btn.classList.add('active');
+        }
     });
 }
 
 // Load Products
 async function loadProducts() {
-    const grid = document.getElementById('products-grid');
+    const grid = document.getElementById('catalog-grid');
     if (!grid) return;
     
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
@@ -79,18 +104,21 @@ async function loadProducts() {
 
 // Render Products
 function renderProducts() {
-    const grid = document.getElementById('products-grid');
+    const grid = document.getElementById('catalog-grid');
+    const count = document.getElementById('products-count');
     if (!grid) return;
+    
+    // Update count
+    if (count) {
+        count.textContent = products.length;
+    }
     
     if (!products.length) {
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b">Nenhum produto encontrado</p>';
         return;
     }
     
-    // Limit to 6 products on homepage
-    const limitedProducts = products.slice(0, 6);
-    
-    grid.innerHTML = limitedProducts.map(p => `
+    grid.innerHTML = products.map(p => `
         <div class="product-card" onclick="goToProduct('${p.slug}')">
             <div class="product-image">
                 <img src="${p.image_url || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
@@ -106,18 +134,6 @@ function renderProducts() {
             </div>
         </div>
     `).join('');
-    
-    // Add "Ver Tudo" button if there are more products
-    if (products.length > 6) {
-        const viewAllBtn = document.createElement('div');
-        viewAllBtn.style.cssText = 'grid-column: 1/-1; text-align: center; margin-top: 2rem;';
-        viewAllBtn.innerHTML = `
-            <button type="button" class="btn-primary" onclick="goToCatalog()">
-                <i class="fas fa-th"></i> Ver Todos os Produtos (${products.length})
-            </button>
-        `;
-        grid.appendChild(viewAllBtn);
-    }
 }
 
 // Category Label
@@ -128,15 +144,10 @@ function getCategoryLabel(cat) {
 
 // Go to Product
 function goToProduct(slug) {
-    window.location.href = `pages/produto.html?slug=${slug}`;
+    window.location.href = `produto.html?slug=${slug}`;
 }
 
-// Go to Catalog
-function goToCatalog() {
-    window.location.href = `pages/catalogo.html?category=${currentCategory}`;
-}
-
-// Cart Functions
+// Cart Functions (reused from main script)
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     const existingItem = cart.find(item => item.id === productId);
@@ -191,16 +202,21 @@ function loadCart() {
 
 function updateCartCount() {
     const count = cart.reduce((total, item) => total + item.quantity, 0);
-    document.getElementById('cart-count').textContent = count;
+    const element = document.getElementById('cart-count');
+    if (element) {
+        element.textContent = count;
+    }
 }
 
 function renderCart() {
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
     
+    if (!cartItems) return;
+    
     if (cart.length === 0) {
         cartItems.innerHTML = '<p style="text-align: center; padding: 2rem; color: #64748b;">O seu carrinho está vazio</p>';
-        cartTotal.textContent = '€0.00';
+        if (cartTotal) cartTotal.textContent = '€0.00';
         return;
     }
     
@@ -223,13 +239,17 @@ function renderCart() {
         </div>
     `).join('');
     
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `€${total.toFixed(2)}`;
+    if (cartTotal) {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotal.textContent = `€${total.toFixed(2)}`;
+    }
 }
 
 function toggleCart() {
     const cartSidebar = document.getElementById('cart-sidebar');
-    cartSidebar.classList.toggle('active');
+    if (cartSidebar) {
+        cartSidebar.classList.toggle('active');
+    }
 }
 
 function checkout() {
@@ -238,17 +258,8 @@ function checkout() {
         return;
     }
     
-    // Here you would integrate with Supabase to save the order
-    const orderData = {
-        items: cart,
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        created_at: new Date().toISOString()
-    };
-    
-    // For now, just show a message
     showToast('Pedido finalizado! Entraremos em contacto em breve.');
     
-    // Clear cart
     cart = [];
     saveCart();
     updateCartCount();
@@ -259,78 +270,19 @@ function checkout() {
 // Navigation Functions
 function toggleMobileMenu() {
     const navMenu = document.querySelector('.nav-menu');
-    navMenu.classList.toggle('active');
-}
-
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+    if (navMenu) {
+        navMenu.classList.toggle('active');
     }
 }
 
 // Form Handling
 function setupEventListeners() {
-    // Contact Form
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                product_type: document.getElementById('product-type').value,
-                message: document.getElementById('message').value,
-                created_at: new Date().toISOString()
-            };
-            
-            try {
-                // Save to Supabase (when configured)
-                // const { data, error } = await supabaseClient
-                //     .from('contacts')
-                //     .insert([formData]);
-                
-                // For now, just show success message
-                showToast('Mensagem enviada com sucesso! Entraremos em contacto em breve.');
-                contactForm.reset();
-            } catch (error) {
-                showToast('Erro ao enviar mensagem. Tente novamente.', 'error');
-                console.error('Error:', error);
-            }
-        });
-    }
-    
-    // Newsletter Form
-    const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = e.target.querySelector('input[type="email"]').value;
-            
-            try {
-                // Save to Supabase (when configured)
-                // const { data, error } = await supabaseClient
-                //     .from('newsletter')
-                //     .insert([{ email, created_at: new Date().toISOString() }]);
-                
-                showToast('Subscrição realizada com sucesso!');
-                e.target.reset();
-            } catch (error) {
-                showToast('Erro ao subscrever. Tente novamente.', 'error');
-                console.error('Error:', error);
-            }
-        });
-    }
-    
     // Close cart when clicking outside
     document.addEventListener('click', function(e) {
         const cartSidebar = document.getElementById('cart-sidebar');
         const cartBtn = document.querySelector('.cart-btn');
         
-        if (!cartSidebar.contains(e.target) && !cartBtn.contains(e.target)) {
+        if (cartSidebar && cartBtn && !cartSidebar.contains(e.target) && !cartBtn.contains(e.target)) {
             cartSidebar.classList.remove('active');
         }
     });
@@ -350,7 +302,9 @@ function setupEventListeners() {
                 
                 // Close mobile menu if open
                 const navMenu = document.querySelector('.nav-menu');
-                navMenu.classList.remove('active');
+                if (navMenu) {
+                    navMenu.classList.remove('active');
+                }
             }
         });
     });
@@ -359,6 +313,8 @@ function setupEventListeners() {
 // Toast Notifications
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
+    if (!toast) return;
+    
     toast.textContent = message;
     toast.className = 'toast show';
     
@@ -370,36 +326,3 @@ function showToast(message, type = 'success') {
         toast.classList.remove('show');
     }, 3000);
 }
-
-// Supabase Integration Functions
-async function saveContactToSupabase(contactData) {
-    try {
-        const { data, error } = await supabaseClient
-            .from('contacts')
-            .insert([contactData]);
-        
-        if (error) throw error;
-        return data;
-    } catch (error) {
-        console.error('Error saving contact:', error);
-        throw error;
-    }
-}
-
-async function saveNewsletterToSupabase(email) {
-    try {
-        const { data, error } = await supabaseClient
-            .from('newsletter')
-            .insert([{ 
-                email, 
-                created_at: new Date().toISOString() 
-            }]);
-        
-        if (error) throw error;
-        return data;
-    } catch (error) {
-        console.error('Error saving newsletter subscription:', error);
-        throw error;
-    }
-}
-

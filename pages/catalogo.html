@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo - PrintCraft</title>
+    <meta name="description" content="Catálogo completo de produtos de publicidade da PrintCraft">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    
+    <!-- Custom CSS for Catalog -->
+    <style>
+        .catalog-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .catalog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: white;
+        }
+        
+        .catalog-header p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .catalog-filters {
+            background: #f8fafc;
+            padding: 40px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 40px 0;
+        }
+        
+        .catalog-stats {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #64748b;
+        }
+        
+        .catalog-stats span {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+        
+        @media (max-width: 768px) {
+            .catalog-header {
+                padding: 60px 16px 30px;
+            }
+            
+            .catalog-header h1 {
+                font-size: 2rem;
+            }
+            
+            .catalog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+                padding: 30px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">
+                    <i class="fas fa-print"></i>
+                    <span>PrintCraft</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="../index.html#home">Início</a>
+                    <a href="../index.html#products">Produtos</a>
+                    <a href="../index.html#services">Serviços</a>
+                    <a href="../index.html#about">Sobre</a>
+                    <a href="../index.html#contact">Contacto</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Header -->
+    <section class="catalog-header">
+        <div class="container">
+            <h1>Catálogo Completo</h1>
+            <p>Explore toda a nossa gama de produtos de publicidade e marketing</p>
+        </div>
+    </section>
+
+    <!-- Catalog Filters -->
+    <section class="catalog-filters">
+        <div class="container">
+            <div class="catalog-stats">
+                Mostrando <span id="products-count">0</span> produtos
+            </div>
+            <div class="product-categories">
+                <button type="button" class="category-btn active" data-category="all">Todos</button>
+                <button type="button" class="category-btn" data-category="flybanners">Flybanners</button>
+                <button type="button" class="category-btn" data-category="rollups">Roll-ups</button>
+                <button type="button" class="category-btn" data-category="xbanners">X-Banners</button>
+                <button type="button" class="category-btn" data-category="lonas">Lonas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Grid -->
+    <section class="catalog-section">
+        <div class="container">
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-print"></i>
+                        <span>PrintCraft</span>
+                    </div>
+                    <p>Soluções de impressão e publicidade de alta qualidade para a sua empresa.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="../index.html">Início</a></li>
+                        <li><a href="#products">Produtos</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#about">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="?category=flybanners">Flybanners</a></li>
+                        <li><a href="?category=rollups">Roll-ups</a></li>
+                        <li><a href="?category=xbanners">X-Banners</a></li>
+                        <li><a href="?category=lonas">Lonas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <div class="contact-mini">
+                        <h4><i class="fas fa-headset"></i> Suporte</h4>
+                        <p><i class="fas fa-phone"></i> +351 912 345 678</p>
+                        <p><i class="fas fa-envelope"></i> info@printcraft.pt</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2024 PrintCraft. Todos os direitos reservados.</p>
+                        <p>Feito com <i class="fas fa-heart"></i> em Portugal</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="privacy.html">Privacidade</a>
+                        <a href="terms.html">Termos</a>
+                        <a href="cookies.html">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Carrinho de Compras</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="text-align: center; padding: 2rem; color: #64748b;">O seu carrinho está vazio</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">€0.00</span>
+            </div>
+            <button class="btn-primary" onclick="checkout()">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    
+    <script src="../assets/js/script-catalog.js"></script>
+</body>
+</html>
