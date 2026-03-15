@@ -19,6 +19,21 @@ function generateNavbar() {
                 </div>
                 
                 <ul class="nav-menu">
+                        <li class="mobile-search-item">
+                            <div class="mobile-search">
+                                <div class="search-container">
+                                    <input type="text" id="mobile-search-input" placeholder="Pesquisar produtos..." onkeyup="handleNavSearch(event)">
+                                    <button class="search-btn" onclick="toggleNavSearch()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="search-dropdown" id="search-dropdown">
+                                    <div class="search-results" id="search-results">
+                                        <!-- Search results will appear here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li><a href="${basePath}index.html#home">Início</a></li>
                         <li><a href="${basePath}index.html#products">Produtos</a></li>
                         <li><a href="${basePath}index.html#services">Serviços</a></li>
@@ -27,17 +42,12 @@ function generateNavbar() {
                     </ul>
                     
                     <div class="nav-actions">
-                        <div class="nav-search">
+                        <div class="nav-search desktop-only">
                             <div class="search-container">
                                 <input type="text" id="nav-search-input" placeholder="Pesquisar produtos..." onkeyup="handleNavSearch(event)">
                                 <button class="search-btn" onclick="toggleNavSearch()">
                                     <i class="fas fa-search"></i>
                                 </button>
-                            </div>
-                            <div class="search-dropdown" id="search-dropdown">
-                                <div class="search-results" id="search-results">
-                                    <!-- Search results will appear here -->
-                                </div>
                             </div>
                         </div>
                         <button class="cart-btn" onclick="toggleCart()">
