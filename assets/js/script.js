@@ -265,7 +265,12 @@ function toggleMobileMenu() {
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        const offset = -80; // Offset para levar um pouco mais para baixo
+        const sectionTop = section.offsetTop + offset;
+        window.scrollTo({
+            top: sectionTop,
+            behavior: 'smooth'
+        });
     }
 }
 
