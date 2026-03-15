@@ -502,7 +502,7 @@ body {
 .mobile-social-links {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 1.5rem;
     padding: 0 2rem;
 }
 
@@ -510,74 +510,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #3b82f6;
-    color: white;
+    width: 24px;
+    height: 24px;
+    color: #6b7280;
     text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.mobile-social-links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: color 0.2s ease;
+    font-size: 1.2rem;
 }
 
 .mobile-social-links a:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.mobile-social-links a:hover::before {
-    transform: translateY(0);
-}
-
-.mobile-social-links a.facebook {
-    background: #1877f2;
-    box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
-}
-
-.mobile-social-links a.facebook:hover {
-    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
-}
-
-.mobile-social-links a.instagram {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    box-shadow: 0 2px 8px rgba(225, 48, 108, 0.3);
-}
-
-.mobile-social-links a.instagram:hover {
-    box-shadow: 0 6px 20px rgba(225, 48, 108, 0.4);
-}
-
-.mobile-social-links a.linkedin {
-    background: #0077b5;
-    box-shadow: 0 2px 8px rgba(0, 119, 181, 0.3);
-}
-
-.mobile-social-links a.linkedin:hover {
-    box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4);
-}
-
-.mobile-social-links a.whatsapp {
-    background: #25d366;
-    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
-}
-
-.mobile-social-links a.whatsapp:hover {
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    color: #3b82f6;
 }
 
 /* Hide social links in desktop */
