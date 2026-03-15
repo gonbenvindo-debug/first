@@ -30,12 +30,10 @@ function setupEventListeners() {
 // Load products from Supabase
 async function loadProducts() {
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`, {
+        const response = await fetch('/api/admin/products', {
+            method: 'GET',
             headers: {
-                'apikey': SUPABASE_SERVICE_KEY,
-                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=representation'
+                'Content-Type': 'application/json'
             }
         });
         
@@ -315,41 +313,13 @@ async function saveProduct(event) {
     }
     
     try {
-        if (currentEditId) {
-            // Update existing product
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${currentEditId}`, {
-                method: 'PATCH',
-                headers: {
-                    'apikey': SUPABASE_SERVICE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            if (response.ok) {
-                showToast('Produto atualizado com sucesso', 'success');
-            } else {
-                throw new Error('Erro ao atualizar produto');
-            }
-        } else {
-            // Create new product
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
-                method: 'POST',
-                headers: {
-                    'apikey': SUPABASE_SERVICE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            if (response.ok) {
-                showToast('Produto criado com sucesso', 'success');
-            } else {
-                throw new Error('Erro ao criar produto');
-            }
-        }
+        const response = await fetch('/api/admin/products', {
+            method: currentEditId ? 'PUT' : 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(currentEditId ? { ...formData, id: currentEditId } : formData)
+        });
         
         closeProductModal();
         loadProducts();
@@ -407,11 +377,10 @@ async function deleteProduct(productId) {
     }
     
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${productId}`, {
+        const response = await fetch(`/api/admin/products?id=${productId}`, {
             method: 'DELETE',
             headers: {
-                'apikey': SUPABASE_SERVICE_KEY,
-                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
+                'Content-Type': 'application/json'
             }
         });
         
