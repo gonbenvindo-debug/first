@@ -265,9 +265,31 @@ function toggleMobileMenu() {
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
-        // Offset diferente para mobile vs desktop
+        // Se for a seção contact, procurar pelo textarea message
+        if (sectionId === 'contact') {
+            const messageTextarea = document.getElementById('message');
+            if (messageTextarea) {
+                const isMobile = window.innerWidth <= 768;
+                const offset = isMobile ? -100 : -120; // Offset para mobile/desktop
+                
+                const textareaTop = messageTextarea.offsetTop + offset;
+                window.scrollTo({
+                    top: textareaTop,
+                    behavior: 'smooth'
+                });
+                
+                // Focar no textarea após o scroll
+                setTimeout(() => {
+                    messageTextarea.focus();
+                }, 800);
+                
+                return;
+            }
+        }
+        
+        // Para outras seções, comportamento normal
         const isMobile = window.innerWidth <= 768;
-        const offset = isMobile ? -40 : -80; // Menor offset para mobile
+        const offset = isMobile ? -40 : -80;
         
         const sectionTop = section.offsetTop + offset;
         window.scrollTo({
