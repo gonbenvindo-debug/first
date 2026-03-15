@@ -1,569 +1,183 @@
 // ===================================
-// COMPONENTS LOADER - Dynamic Component System
+// PRINTCRAFT COMPONENTS JAVASCRIPT
 // ===================================
 
-// Component Loader Class
-class ComponentLoader {
-    constructor() {
-        this.components = new Map();
-        this.cache = new Map();
-        this.init();
-    }
-
-    async init() {
-        await this.loadComponents();
-        this.setupEventListeners();
-        this.initializeComponents();
-    }
-
-    // Load all components
-    async loadComponents() {
-        const componentConfigs = [
-            {
-                id: 'navbar',
-                url: 'components/navbar.html',
-                container: 'navbar-container',
-                required: true
-            },
-            {
-                id: 'footer',
-                url: 'components/footer.html',
-                container: 'footer-container',
-                required: true
-            }
-        ];
-
-        for (const config of componentConfigs) {
-            try {
-                await this.loadComponent(config);
-            } catch (error) {
-                console.error(`Failed to load component ${config.id}:`, error);
-                if (config.required) {
-                    this.showComponentError(config.id);
-                }
-            }
-        }
-    }
-
-    // Load individual component
-    async loadComponent(config) {
-        // Check cache first
-        if (this.cache.has(config.url)) {
-            this.renderComponent(config, this.cache.get(config.url));
-            return;
-        }
-
-        try {
-            const response = await fetch(config.url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const html = await response.text();
-            this.cache.set(config.url, html);
-            this.renderComponent(config, html);
-            this.components.set(config.id, { ...config, loaded: true });
-            
-        } catch (error) {
-            throw new Error(`Failed to fetch component ${config.id}: ${error.message}`);
-        }
-    }
-
-    // Render component to DOM
-    renderComponent(config, html) {
-        const container = document.getElementById(config.container);
-        if (container) {
-            container.innerHTML = html;
-            this.initializeComponentScripts(config.id, container);
-        }
-    }
-
-    // Initialize component-specific scripts
-    initializeComponentScripts(componentId, container) {
-        switch (componentId) {
-            case 'navbar':
-                this.initializeNavbar(container);
-                break;
-            case 'footer':
-                this.initializeFooter(container);
-                break;
-        }
-    }
-
-    // Initialize navbar functionality
-    initializeNavbar(container) {
-        const mobileMenuBtn = container.querySelector('#mobile-menu-btn');
-        const navMenu = container.querySelector('#nav-menu');
-        const cartBtn = container.querySelector('#cart-btn');
-        const navbar = container.querySelector('#navbar');
-
-        if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
-                }
-            });
-        }
-
-        // Close mobile menu when clicking on links
-        const navLinks = container.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu) {
-                    navMenu.classList.remove('active');
-                }
-                const icon = mobileMenuBtn?.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-            });
-        });
-
-        // Navbar scroll effect
-        if (navbar) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        }
-
-        // Smooth scroll for navigation links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                if (targetId && targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const offset = 80; // Navbar height
-                        const targetPosition = targetElement.offsetTop - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-    }
-
-    // Initialize footer functionality
-    initializeFooter(container) {
-        // Newsletter form
-        const newsletterForm = container.querySelector('#newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = newsletterForm.querySelector('input[type="email"]').value;
+// Generate Navbar
+function generateNavbar() {
+    return `
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <i class="fas fa-print"></i>
+                        <span>PrintCraft</span>
+                    </a>
+                </div>
                 
-                try {
-                    await this.subscribeNewsletter(email);
-                    this.showToast('🎉 Subscrição realizada com sucesso! Verifique seu email.', 'success');
-                    newsletterForm.reset();
-                } catch (error) {
-                    this.showToast('❌ Erro ao subscrever. Tente novamente.', 'error');
-                }
-            });
-        }
-
-        // Back to top button
-        const backToTopBtn = container.querySelector('#back-to-top');
-        if (backToTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
-                }
-            });
-
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        // Footer links smooth scroll
-        const footerLinks = container.querySelectorAll('.footer-links a, .footer-section a[href^="#"]');
-        footerLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                if (targetId && targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const offset = 80;
-                        const targetPosition = targetElement.offsetTop - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        // Language selector
-        const languageSelect = container.querySelector('#language-select');
-        if (languageSelect) {
-            languageSelect.addEventListener('change', (e) => {
-                const selectedLang = e.target.value;
-                this.changeLanguage(selectedLang);
-            });
-        }
-
-        // Initialize live chat
-        this.initializeLiveChat(container);
-    }
-
-    // Initialize live chat functionality
-    initializeLiveChat(container) {
-        const chatToggle = container.querySelector('#chat-toggle');
-        const chatWindow = container.querySelector('#chat-window');
-        const chatClose = container.querySelector('#chat-close');
-        const chatInput = container.querySelector('#chat-input-field');
-        const chatSend = container.querySelector('#chat-send');
-        const chatMessages = container.querySelector('#chat-messages');
-
-        if (!chatToggle || !chatWindow) return;
-
-        // Toggle chat window
-        chatToggle.addEventListener('click', () => {
-            chatWindow.classList.toggle('active');
-            const badge = chatToggle.querySelector('.chat-badge');
-            if (badge) {
-                badge.style.display = 'none';
-            }
-        });
-
-        // Close chat window
-        if (chatClose) {
-            chatClose.addEventListener('click', () => {
-                chatWindow.classList.remove('active');
-            });
-        }
-
-        // Send message
-        const sendMessage = () => {
-            const message = chatInput?.value.trim();
-            if (!message || !chatMessages) return;
-
-            // Add user message
-            const userMessage = document.createElement('div');
-            userMessage.className = 'chat-message user';
-            userMessage.innerHTML = `
-                <i class="fas fa-user"></i>
-                <div class="message-content">
-                    <p>${this.escapeHtml(message)}</p>
-                </div>
-            `;
-            chatMessages.appendChild(userMessage);
-
-            // Clear input
-            if (chatInput) {
-                chatInput.value = '';
-            }
-
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Simulate bot response
-            setTimeout(() => {
-                const botMessage = document.createElement('div');
-                botMessage.className = 'chat-message bot';
-                botMessage.innerHTML = `
-                    <i class="fas fa-robot"></i>
-                    <div class="message-content">
-                        <p>Obrigado pela sua mensagem! Nossa equipe irá responder em breve. Horário de atendimento: Seg-Sex 9h-18h.</p>
+                <div class="nav-menu">
+                    <div class="nav-links">
+                        <a href="index.html#home">Início</a>
+                        <a href="index.html#products">Produtos</a>
+                        <a href="index.html#services">Serviços</a>
+                        <a href="index.html#about">Sobre</a>
+                        <a href="index.html#contact">Contacto</a>
                     </div>
-                `;
-                chatMessages.appendChild(botMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
-        };
-
-        // Send on button click
-        if (chatSend) {
-            chatSend.addEventListener('click', sendMessage);
-        }
-
-        // Send on Enter key
-        if (chatInput) {
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-        }
-
-        // Close chat when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!container.contains(e.target) && chatWindow.classList.contains('active')) {
-                chatWindow.classList.remove('active');
-            }
-        });
-    }
-
-    // Change language
-    changeLanguage(lang) {
-        // Simulate language change
-        this.showToast(`🌐 Idioma alterado para ${this.getLanguageName(lang)}`, 'info');
-        
-        // In a real application, this would reload content in the selected language
-        console.log(`Language changed to: ${lang}`);
-    }
-
-    // Get language name
-    getLanguageName(lang) {
-        const languages = {
-            'pt': 'Português',
-            'en': 'English',
-            'es': 'Español',
-            'fr': 'Français'
-        };
-        return languages[lang] || lang;
-    }
-
-    // Escape HTML to prevent XSS
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    // Newsletter subscription
-    async subscribeNewsletter(email) {
-        // Simulate API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email && email.includes('@')) {
-                    resolve();
-                } else {
-                    reject(new Error('Invalid email'));
-                }
-            }, 1000);
-        });
-    }
-
-    // Show toast notification
-    showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        if (!toast) return;
-
-        toast.textContent = message;
-        toast.className = `toast ${type}`;
-        toast.classList.add('show');
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    }
-
-    // Show component error
-    showComponentError(componentId) {
-        const container = document.getElementById(`${componentId}-container`);
-        if (container) {
-            container.innerHTML = `
-                <div style="padding: 20px; text-align: center; background: #fee; border: 1px solid #fcc; border-radius: 8px; margin: 20px 0;">
-                    <h3 style="color: #c00; margin: 0 0 10px 0;">Erro ao Carregar Componente</h3>
-                    <p style="color: #666; margin: 0;">Não foi possível carregar o componente ${componentId}. Por favor, recarregue a página.</p>
+                    
+                    <div class="nav-actions">
+                        <button class="cart-btn" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">0</span>
+                        </button>
+                        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-            `;
-        }
+            </div>
+        </nav>
+    `;
+}
+
+// Generate Footer
+function generateFooter() {
+    return `
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <i class="fas fa-print"></i>
+                            <span>PrintCraft</span>
+                        </div>
+                        <p>Soluções de impressão e publicidade de alta qualidade para a sua empresa.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Links Úteis</h4>
+                        <ul>
+                            <li><a href="index.html">Início</a></li>
+                            <li><a href="index.html#products">Produtos</a></li>
+                            <li><a href="index.html#services">Serviços</a></li>
+                            <li><a href="index.html#about">Sobre Nós</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Produtos</h4>
+                        <ul>
+                            <li><a href="pages/catalogo.html?category=flybanners">Flybanners</a></li>
+                            <li><a href="pages/catalogo.html?category=rollups">Roll-ups</a></li>
+                            <li><a href="pages/catalogo.html?category=xbanners">X-Banners</a></li>
+                            <li><a href="pages/catalogo.html?category=lonas">Lonas</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <div class="contact-mini">
+                            <h4><i class="fas fa-headset"></i> Suporte</h4>
+                            <p><i class="fas fa-phone"></i> +351 912 345 678</p>
+                            <p><i class="fas fa-envelope"></i> info@printcraft.pt</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <div class="footer-copyright">
+                            <p>&copy; 2024 PrintCraft. Todos os direitos reservados.</p>
+                            <p>Feito com <i class="fas fa-heart"></i> em Portugal</p>
+                        </div>
+                        <div class="footer-legal">
+                            <a href="pages/privacy.html">Privacidade</a>
+                            <a href="pages/terms.html">Termos</a>
+                            <a href="pages/cookies.html">Cookies</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    `;
+}
+
+// Generate Cart Sidebar
+function generateCartSidebar() {
+    return `
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h3>Carrinho de Compras</h3>
+                <button class="cart-close" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <p style="text-align: center; padding: 2rem; color: #64748b;">O seu carrinho está vazio</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">€0.00</span>
+                </div>
+                <button class="btn-primary" onclick="checkout()">Finalizar Pedido</button>
+            </div>
+        </div>
+    `;
+}
+
+// Generate Toast Notification
+function generateToast() {
+    return `
+        <div class="toast" id="toast"></div>
+    `;
+}
+
+// Initialize Components
+function initializeComponents() {
+    // Insert navbar
+    const navbarPlaceholder = document.getElementById('navbar-placeholder');
+    if (navbarPlaceholder) {
+        navbarPlaceholder.innerHTML = generateNavbar();
     }
-
-    // Setup global event listeners
-    setupEventListeners() {
-        // Handle page visibility changes
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                this.refreshComponents();
-            }
-        });
-
-        // Handle online/offline status
-        window.addEventListener('online', () => {
-            this.showToast('Conexão restaurada', 'success');
-            this.refreshComponents();
-        });
-
-        window.addEventListener('offline', () => {
-            this.showToast('Sem conexão à internet', 'error');
-        });
+    
+    // Insert footer
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+    if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = generateFooter();
     }
-
-    // Initialize all components
-    initializeComponents() {
-        // Add any global initialization logic here
-        console.log('All components initialized successfully');
+    
+    // Insert cart sidebar
+    const cartPlaceholder = document.getElementById('cart-placeholder');
+    if (cartPlaceholder) {
+        cartPlaceholder.innerHTML = generateCartSidebar();
     }
-
-    // Refresh components
-    async refreshComponents() {
-        for (const [id, config] of this.components) {
-            if (config.loaded) {
-                try {
-                    await this.loadComponent(config);
-                } catch (error) {
-                    console.error(`Failed to refresh component ${id}:`, error);
-                }
-            }
-        }
+    
+    // Insert toast
+    const toastPlaceholder = document.getElementById('toast-placeholder');
+    if (toastPlaceholder) {
+        toastPlaceholder.innerHTML = generateToast();
     }
-
-    // Get component by ID
-    getComponent(id) {
-        return this.components.get(id);
+    
+    // Initialize cart if cart functions exist
+    if (typeof loadCart === 'function') {
+        loadCart();
     }
-
-    // Reload specific component
-    async reloadComponent(id) {
-        const config = this.components.get(id);
-        if (config) {
-            this.cache.delete(config.url);
-            await this.loadComponent(config);
-        }
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
     }
 }
 
-// Theme Manager
-class ThemeManager {
-    constructor() {
-        this.currentTheme = localStorage.getItem('theme') || 'light';
-        this.init();
-    }
-
-    init() {
-        this.applyTheme(this.currentTheme);
-        this.setupThemeToggle();
-    }
-
-    applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        this.currentTheme = theme;
-    }
-
-    toggleTheme() {
-        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        this.applyTheme(newTheme);
-    }
-
-    setupThemeToggle() {
-        // Add theme toggle button if needed
-        const themeToggle = document.createElement('button');
-        themeToggle.id = 'theme-toggle';
-        themeToggle.className = 'theme-toggle';
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        themeToggle.setAttribute('aria-label', 'Alternar tema');
-        
-        themeToggle.addEventListener('click', () => {
-            this.toggleTheme();
-            const icon = themeToggle.querySelector('i');
-            icon.className = this.currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-        });
-
-        // Add to page (you can customize where to place it)
-        document.body.appendChild(themeToggle);
-    }
-}
-
-// Performance Monitor
-class PerformanceMonitor {
-    constructor() {
-        this.metrics = {};
-        this.init();
-    }
-
-    init() {
-        // Monitor page load performance
-        window.addEventListener('load', () => {
-            this.recordPageLoadMetrics();
-        });
-
-        // Monitor component load times
-        this.observeComponentPerformance();
-    }
-
-    recordPageLoadMetrics() {
-        if ('performance' in window) {
-            const navigation = performance.getEntriesByType('navigation')[0];
-            this.metrics.pageLoad = {
-                domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-                loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-                totalTime: navigation.loadEventEnd - navigation.fetchStart
-            };
-            console.log('Page Load Metrics:', this.metrics.pageLoad);
-        }
-    }
-
-    observeComponentPerformance() {
-        // Observe when components become visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const componentName = entry.target.dataset.component;
-                    if (componentName) {
-                        this.recordComponentLoad(componentName);
-                    }
-                }
-            });
-        });
-
-        document.querySelectorAll('[data-component]').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    recordComponentLoad(componentName) {
-        if (!this.metrics.components) {
-            this.metrics.components = {};
-        }
-        this.metrics.components[componentName] = {
-            loadTime: performance.now(),
-            timestamp: new Date().toISOString()
-        };
-    }
-}
-
-// Initialize everything when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize component loader
-    window.componentLoader = new ComponentLoader();
-    
-    // Initialize theme manager
-    window.themeManager = new ThemeManager();
-    
-    // Initialize performance monitor
-    window.performanceMonitor = new PerformanceMonitor();
-    
-    // Global error handling
-    window.addEventListener('error', (e) => {
-        console.error('Global error:', e.error);
-        if (window.componentLoader) {
-            window.componentLoader.showToast('Ocorreu um erro inesperado', 'error');
-        }
-    });
-
-    // Global unhandled promise rejection
-    window.addEventListener('unhandledrejection', (e) => {
-        console.error('Unhandled promise rejection:', e.reason);
-        if (window.componentLoader) {
-            window.componentLoader.showToast('Ocorreu um erro inesperado', 'error');
-        }
-    });
+// Auto-initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeComponents();
 });
 
-// Export for external use
-window.ComponentLoader = ComponentLoader;
-window.ThemeManager = ThemeManager;
-window.PerformanceMonitor = PerformanceMonitor;
+// Export functions for global use
+window.generateNavbar = generateNavbar;
+window.generateFooter = generateFooter;
+window.generateCartSidebar = generateCartSidebar;
+window.generateToast = generateToast;
+window.initializeComponents = initializeComponents;
