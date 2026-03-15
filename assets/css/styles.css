@@ -475,6 +475,13 @@ body {
     position: relative;
     z-index: 10;
     pointer-events: auto !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-btn i {
+    font-size: 0.9rem;
 }
 
 .category-btn.active,

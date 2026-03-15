@@ -9,7 +9,13 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // State
 let cart = [];
 let products = [];
+let filteredProducts = [];
 let currentCategory = 'all';
+let currentPage = 1;
+let productsPerPage = 12;
+let currentSort = 'created_at-desc';
+let currentView = 'grid';
+let searchTerm = '';
 
 // Get category from URL
 function getCategoryFromURL() {
@@ -48,9 +54,9 @@ function initCategoryButtons() {
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
-            // Update category and load
+            // Update category and apply filters
             currentCategory = category;
-            loadProducts();
+            applyFilters();
             
             // Update URL
             const url = new URL(window.location);
@@ -80,7 +86,7 @@ async function loadProducts() {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
     
     try {
-        let url = `${SUPABASE_URL}/rest/v1/products?in_stock=eq.true&order=created_at.desc`;
+        let url = `${SUPABASE_URL}/rest/v1/products?in_stock=eq.true`;
         if (currentCategory !== 'all') {
             url += `&category=eq.${currentCategory}`;
         }
@@ -95,11 +101,56 @@ async function loadProducts() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         
         products = await res.json();
-        renderProducts();
+        applyFilters();
     } catch (err) {
         console.error('Erro:', err);
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#ef4444">Erro ao carregar produtos</p>';
     }
+}
+
+// Apply filters, sorting and search
+function applyFilters() {
+    // Start with all products
+    filteredProducts = [...products];
+    
+    // Apply category filter
+    if (currentCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(p => p.category === currentCategory);
+    }
+    
+    // Apply search filter
+    if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        filteredProducts = filteredProducts.filter(p => 
+            p.name.toLowerCase().includes(term) ||
+            (p.description && p.description.toLowerCase().includes(term)) ||
+            p.category.toLowerCase().includes(term)
+        );
+    }
+    
+    // Apply sorting
+    const [field, order] = currentSort.split('-');
+    filteredProducts.sort((a, b) => {
+        let aVal = a[field];
+        let bVal = b[field];
+        
+        if (field === 'price') {
+            aVal = parseFloat(aVal) || 0;
+            bVal = parseFloat(bVal) || 0;
+        }
+        
+        if (order === 'asc') {
+            return aVal > bVal ? 1 : -1;
+        } else {
+            return aVal < bVal ? 1 : -1;
+        }
+    });
+    
+    // Reset to first page when filters change
+    currentPage = 1;
+    
+    renderProducts();
+    renderPagination();
 }
 
 // Render Products
@@ -108,18 +159,27 @@ function renderProducts() {
     const count = document.getElementById('products-count');
     if (!grid) return;
     
-    // Update count
+    // Update count with filtered products
     if (count) {
-        count.textContent = products.length;
+        count.textContent = filteredProducts.length;
     }
     
-    if (!products.length) {
+    if (!filteredProducts.length) {
         grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b">Nenhum produto encontrado</p>';
         return;
     }
     
-    grid.innerHTML = products.map(p => `
-        <div class="product-card" onclick="goToProduct('${p.slug}')">
+    // Calculate pagination
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+    
+    // Set view class
+    grid.className = currentView === 'list' ? 'catalog-grid list-view' : 'catalog-grid';
+    
+    // Render products
+    grid.innerHTML = paginatedProducts.map(p => `
+        <div class="product-card ${currentView === 'list' ? 'list-view' : ''}" onclick="goToProduct('${p.slug}')">
             <div class="product-image">
                 <img src="${p.image_url || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=Produto'">
             </div>
@@ -136,6 +196,90 @@ function renderProducts() {
     `).join('');
 }
 
+// Render Pagination
+function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+    
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    
+    if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+    }
+    
+    let paginationHTML = '';
+    
+    // Previous button
+    paginationHTML += `
+        <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    `;
+    
+    // Page numbers
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    if (startPage > 1) {
+        paginationHTML += `<button onclick="changePage(1)">1</button>`;
+        if (startPage > 2) {
+            paginationHTML += `<span class="pagination-info">...</span>`;
+        }
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `
+            <button onclick="changePage(${i})" ${i === currentPage ? 'class="active"' : ''}>
+                ${i}
+            </button>
+        `;
+    }
+    
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += `<span class="pagination-info">...</span>`;
+        }
+        paginationHTML += `<button onclick="changePage(${totalPages})">${totalPages}</button>`;
+    }
+    
+    // Next button
+    paginationHTML += `
+        <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+    
+    // Info
+    const startItem = (currentPage - 1) * productsPerPage + 1;
+    const endItem = Math.min(currentPage * productsPerPage, filteredProducts.length);
+    paginationHTML += `
+        <span class="pagination-info">
+            ${startItem}-${endItem} de ${filteredProducts.length}
+        </span>
+    `;
+    
+    pagination.innerHTML = paginationHTML;
+}
+
+// Change page
+function changePage(page) {
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    if (page < 1 || page > totalPages) return;
+    
+    currentPage = page;
+    renderProducts();
+    renderPagination();
+    
+    // Scroll to top of products
+    document.querySelector('.catalog-section').scrollIntoView({ behavior: 'smooth' });
+}
+
 // Category Label
 function getCategoryLabel(cat) {
     const labels = { 'flybanners': 'Flybanners', 'rollups': 'Roll-ups', 'xbanners': 'X-Banners', 'lonas': 'Lonas' };
@@ -145,6 +289,37 @@ function getCategoryLabel(cat) {
 // Go to Product
 function goToProduct(slug) {
     window.location.href = `produto.html?slug=${slug}`;
+}
+
+// Sort Products
+function sortProducts() {
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+        currentSort = sortSelect.value;
+        applyFilters();
+    }
+}
+
+// Search Products
+function searchProducts() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchTerm = searchInput.value.trim();
+        applyFilters();
+    }
+}
+
+// Change View
+function changeView(view) {
+    currentView = view;
+    
+    // Update active button
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-view="${view}"]`).classList.add('active');
+    
+    renderProducts();
 }
 
 // Cart Functions (reused from main script)

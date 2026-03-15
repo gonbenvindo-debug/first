@@ -48,6 +48,138 @@
             border-bottom: 1px solid #e2e8f0;
         }
         
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .catalog-stats {
+            color: #64748b;
+            font-size: 1rem;
+        }
+        
+        .catalog-stats span {
+            font-weight: 600;
+            color: #3b82f6;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .view-btn {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #64748b;
+        }
+        
+        .view-btn:hover,
+        .view-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .filters-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .filter-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-section h3 i {
+            color: #3b82f6;
+            font-size: 0.9rem;
+        }
+        
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .category-btn {
+            padding: 10px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #64748b;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-1px);
+        }
+        
+        .category-btn i {
+            font-size: 0.85rem;
+        }
+        
+        .sort-options select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.9rem;
+            color: #374151;
+            cursor: pointer;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .search-box button {
+            padding: 10px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .search-box button:hover {
+            background: #2563eb;
+        }
+        
         .catalog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -55,15 +187,67 @@
             padding: 40px 0;
         }
         
-        .catalog-stats {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #64748b;
+        .catalog-grid.list-view {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
         
-        .catalog-stats span {
-            font-weight: 600;
-            color: #3b82f6;
+        .product-card.list-view {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .product-card.list-view .product-image {
+            width: 200px;
+            height: 150px;
+            flex-shrink: 0;
+        }
+        
+        .product-card.list-view .product-info {
+            flex: 1;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #374151;
+            font-size: 0.9rem;
+            min-width: 40px;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background: #f1f5f9;
+        }
+        
+        .pagination button.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 0 16px;
         }
         
         @media (max-width: 768px) {
@@ -75,9 +259,38 @@
                 font-size: 2rem;
             }
             
+            .filters-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .filters-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .category-filters {
+                justify-content: center;
+            }
+            
             .catalog-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1.5rem;
+                padding: 30px 16px;
+            }
+            
+            .product-card.list-view {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .product-card.list-view .product-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .pagination {
                 padding: 30px 16px;
             }
         }
@@ -127,15 +340,65 @@
     <!-- Catalog Filters -->
     <section class="catalog-filters">
         <div class="container">
-            <div class="catalog-stats">
-                Mostrando <span id="products-count">0</span> produtos
+            <div class="filters-header">
+                <div class="catalog-stats">
+                    Mostrando <span id="products-count">0</span> produtos
+                </div>
+                <div class="view-options">
+                    <button type="button" class="view-btn active" data-view="grid" onclick="changeView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button type="button" class="view-btn" data-view="list" onclick="changeView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
             </div>
-            <div class="product-categories">
-                <button type="button" class="category-btn active" data-category="all">Todos</button>
-                <button type="button" class="category-btn" data-category="flybanners">Flybanners</button>
-                <button type="button" class="category-btn" data-category="rollups">Roll-ups</button>
-                <button type="button" class="category-btn" data-category="xbanners">X-Banners</button>
-                <button type="button" class="category-btn" data-category="lonas">Lonas</button>
+            
+            <div class="filters-content">
+                <div class="filter-section">
+                    <h3><i class="fas fa-filter"></i> Categorias</h3>
+                    <div class="category-filters">
+                        <button type="button" class="category-btn active" data-category="all">
+                            <i class="fas fa-th-large"></i> Todos
+                        </button>
+                        <button type="button" class="category-btn" data-category="flybanners">
+                            <i class="fas fa-flag"></i> Flybanners
+                        </button>
+                        <button type="button" class="category-btn" data-category="rollups">
+                            <i class="fas fa-scroll"></i> Roll-ups
+                        </button>
+                        <button type="button" class="category-btn" data-category="xbanners">
+                            <i class="fas fa-times"></i> X-Banners
+                        </button>
+                        <button type="button" class="category-btn" data-category="lonas">
+                            <i class="fas fa-rectangle-wide"></i> Lonas
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3><i class="fas fa-sort"></i> Ordenar por</h3>
+                    <div class="sort-options">
+                        <select id="sort-select" onchange="sortProducts()">
+                            <option value="created_at-desc">Mais Recentes</option>
+                            <option value="created_at-asc">Mais Antigos</option>
+                            <option value="price-asc">Preço: Menor para Maior</option>
+                            <option value="price-desc">Preço: Maior para Menor</option>
+                            <option value="name-asc">Nome: A-Z</option>
+                            <option value="name-desc">Nome: Z-A</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3><i class="fas fa-search"></i> Pesquisar</h3>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Pesquisar produtos..." onkeyup="searchProducts()">
+                        <button type="button" onclick="searchProducts()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -145,6 +408,11 @@
         <div class="container">
             <div class="catalog-grid" id="catalog-grid">
                 <!-- Products will be loaded here -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be loaded here -->
             </div>
         </div>
     </section>
