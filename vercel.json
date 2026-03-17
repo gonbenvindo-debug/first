@@ -12,8 +12,14 @@
       "destination": "/admin-panel.html"
     },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
+  "errorPages": [
+    {
+      "status": 404,
+      "src": "/index.html"
     }
   ]
 }
