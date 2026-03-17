@@ -14,7 +14,23 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/pages/(.*)",
+      "destination": "/pages/$1"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    {
+      "source": "/((?!api/|admin|admin-panel|assets/|public/|pages/|favicon.ico).*)",
       "destination": "/index.html"
     }
   ]
