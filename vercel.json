@@ -8,32 +8,12 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/admin-panel",
-      "destination": "/admin-panel.html"
-    },
-    {
       "source": "/admin",
       "destination": "/admin/index.html"
     },
     {
-      "source": "/admin/(.*)",
-      "destination": "/admin/$1"
-    },
-    {
-      "source": "/pages/(.*)",
-      "destination": "/pages/$1"
-    },
-    {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
-    },
-    {
-      "source": "/public/(.*)",
-      "destination": "/public/$1"
-    },
-    {
-      "source": "/favicon.ico",
-      "destination": "/favicon.ico"
+      "source": "/admin-panel",
+      "destination": "/admin-panel.html"
     }
   ]
 }
