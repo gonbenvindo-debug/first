@@ -8,6 +8,10 @@
       "destination": "/api/$1"
     },
     {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
       "source": "/admin-panel",
       "destination": "/admin-panel.html"
     },
@@ -32,7 +36,7 @@
       "destination": "/favicon.ico"
     },
     {
-      "source": "/((?!api/|admin-panel|admin/|pages/|assets/|public/|favicon.ico).*)",
+      "source": "/((?!api/|admin|admin-panel|pages/|assets/|public/|favicon.ico).*)",
       "destination": "/index.html"
     }
   ]
