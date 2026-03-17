@@ -4,7 +4,6 @@
   "description": "PrintCraft - Produtos personalizados de publicidade",
   "main": "index.html",
   "scripts": {
-    "build": "mkdir -p .vercel/output/static && cp -r * .vercel/output/static/ 2>/dev/null || copy * .vercel/output/static/",
     "serve": "serve -s . -p 3000"
   },
   "dependencies": {
