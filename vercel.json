@@ -12,14 +12,16 @@
       "destination": "/admin-panel.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/$1"
-    }
-  ],
-  "errorPages": [
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
     {
-      "status": 404,
-      "src": "/index.html"
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/((?!api/|assets/|public/|admin-panel).*)",
+      "destination": "/index.html"
     }
   ]
 }
