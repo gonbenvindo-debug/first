@@ -12,11 +12,27 @@
       "destination": "/admin-panel.html"
     },
     {
-      "source": "/((?!api/|admin-panel).*\\..*)",
-      "destination": "/$1"
+      "source": "/admin/(.*)",
+      "destination": "/admin/$1"
     },
     {
-      "source": "/((?!api/|admin-panel).*)",
+      "source": "/pages/(.*)",
+      "destination": "/pages/$1"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    {
+      "source": "/((?!api/|admin-panel|admin/|pages/|assets/|public/|favicon.ico).*)",
       "destination": "/index.html"
     }
   ]
